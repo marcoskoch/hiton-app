@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   txtTitulo: {
     fontSize: 36,
     color: '#FFF',
-    fontFamily: 'segoeuil'
+    // fontFamily: 'segoeuil'
   },
   backgroundLogin: {
     backgroundColor: '#2d7bdc',
