@@ -6,12 +6,16 @@ import {
 } from 'react-native';
 
 import Topo from './src/components/topo'
+import CardEvent from './src/components/cardEvent'
 
 export default class App extends Component {
   render() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
         <Topo></Topo>
+        <CardEvent></CardEvent>
+        <CardEvent></CardEvent>
+        <CardEvent></CardEvent>
         <View style={styles.backgroundLogin}>
           <Text>Hit On</Text>
         </View>
