@@ -5,13 +5,13 @@ import {
   StyleSheet
 } from 'react-native';
 
+import Topo from './src/components/topo'
+
 export default class App extends Component {
   render() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <View style={styles.topo}>
-          <Text style={styles.txtTitulo}>Hit On</Text>
-        </View>
+        <Topo></Topo>
         <View style={styles.backgroundLogin}>
           <Text>Hit On</Text>
         </View>
@@ -21,15 +21,6 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  topo: {
-    backgroundColor: '#2d7bdc',
-    alignItems: 'center'
-  },
-  txtTitulo: {
-    fontSize: 36,
-    color: '#FFF',
-    // fontFamily: 'segoeuil'
-  },
   backgroundLogin: {
     backgroundColor: '#2d7bdc',
     flex: 1,
