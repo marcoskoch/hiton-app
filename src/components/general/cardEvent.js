@@ -17,7 +17,7 @@ class CardEvent extends Component {
             <Text style={styles.dateTitle}>21/10</Text>
             <View>
               <Text style={styles.nameTitle}>Baile da Provoca</Text>
-              <Text style={styles.localTitle}>Provocateur</Text>
+              <Text style={styles.localTitle}>Provocateur - Porto Alegre</Text>
             </View>
           </View>
       </View>

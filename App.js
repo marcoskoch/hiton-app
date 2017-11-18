@@ -5,29 +5,14 @@ import {
   StyleSheet
 } from 'react-native';
 
-import Topo from './src/components/topo'
-import CardEvent from './src/components/cardEvent'
+import Login from './src/components/login'
 
 export default class App extends Component {
   render() {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
-        <Topo></Topo>
-        <CardEvent></CardEvent>
-        <CardEvent></CardEvent>
-        <CardEvent></CardEvent>
-        <View style={styles.backgroundLogin}>
-          <Text>Hit On</Text>
-        </View>
+        <Login></Login>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  backgroundLogin: {
-    backgroundColor: '#2d7bdc',
-    flex: 1,
-    flexDirection: 'row'
-  }
-});
