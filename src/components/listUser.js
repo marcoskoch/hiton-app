@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import    Topo from './general/topo';
 import    Menu from './general/menu';
 
@@ -9,13 +9,37 @@ const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 export default class ListUser extends Component {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
+  updateMenuState(isOpen) {
+    this.setState({ isOpen });
+  }
+
   render() {
       const menu = <Menu />;
 
     return (
-      <SideMenu menu={menu}>
+      <SideMenu
+        isOpen={this.state.isOpen}
+        onChange={isOpen => this.updateMenuState(isOpen)}
+        menu={menu}>
         <View style={styles.backgroundLogin}>
+        <TouchableOpacity onPress={this.toggle}>
           <Topo title='Hit On' showMenu={true}/>
+        </TouchableOpacity>
         </View>
       </SideMenu>
     );
@@ -46,19 +70,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
     // fontFamily: 'segoeuil'
-  },
-  positionInput: {
-    marginTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  input: {
-    marginTop: 15,
-    width: 180,
-    height: 40,
-    color: '#333333',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 3,
-    paddingLeft: 10
   }
 });
