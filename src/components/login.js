@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
-
+import { Text,TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 class Login extends Component {
+  static navigationOptions = {
+    header:  null
+  };
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionLogo}>
@@ -15,9 +18,9 @@ class Login extends Component {
             source={require('../assets/images/HIT-On.png')}
           />
         </View>
-        <View style={styles.positionText}>
+        <TouchableOpacity style={styles.positionText} onPress={() => navigate('ListUser')}>
           <Text style={styles.textEntrar}>Entrar</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.positionInput}>
           <TextInput
             style={styles.input}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
+import { Text, TouchableOpacity,View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 export default class Menu extends Component {
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionTextEnd}>
@@ -26,15 +27,15 @@ export default class Menu extends Component {
           <Text style={styles.textTitle}>Gênero</Text>
           <Text style={styles.textSubTitle}>Feminino</Text>
         </View>
-        <View style={styles.positionTextMenu}>
+        <TouchableOpacity style={styles.positionTextMenu}>
           <Text style={styles.textTitle}>Meus Hits</Text>
-        </View>
-        <View style={styles.positionTextStart}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.positionTextStart}>
           <Text style={styles.textTitle}>Configuração</Text>
-        </View>
-        <View style={styles.positionTextStart}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('Login')}>
           <Text style={styles.textTitle}>Sair</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }

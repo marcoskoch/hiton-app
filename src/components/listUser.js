@@ -27,10 +27,11 @@ export default class ListUser extends Component {
   updateMenuState(isOpen) {
     this.setState({ isOpen });
   }
-
+  static navigationOptions = {
+    header:  null
+  };
   render() {
-      const menu = <Menu />;
-
+    const menu = <Menu navigation={this.props.navigation} />;
     return (
       <SideMenu
         isOpen={this.state.isOpen}
