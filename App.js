@@ -6,10 +6,12 @@ import {
 import { StackNavigator } from 'react-navigation';
 import ListUser from './src/components/listUser'
 import Login from './src/components/login'
+import Events from './src/components/events'
 
 export const SimpleApp = StackNavigator({
   Login: { screen: Login },
   ListUser: { screen: ListUser },
+  Events: { screen: Events },
 });
 export default class App extends Component {
   render() {

@@ -18,7 +18,7 @@ class Login extends Component {
             source={require('../assets/images/HIT-On.png')}
           />
         </View>
-        <TouchableOpacity style={styles.positionText} onPress={() => navigate('ListUser')}>
+        <TouchableOpacity style={styles.positionText} onPress={() => navigate('Events')}>
           <Text style={styles.textEntrar}>Entrar</Text>
         </TouchableOpacity>
         <View style={styles.positionInput}>

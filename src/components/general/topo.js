@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: 'segoeuil'
+    //fontFamily: 'segoeuil'
   },
   icon: {
     marginLeft: 10,
