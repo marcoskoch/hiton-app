@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, Button, Alert } from 'react-native';
+import { Text, ScrollView, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, Button, Alert } from 'react-native';
 import Topo from './general/topo';
 import CardEvent from './general/cardEvent';
 import    Menu from './general/menu';
@@ -97,7 +97,9 @@ class Events extends Component {
         <TouchableOpacity onPress={this.toggle}>
           <Topo title='Hit On' showMenu={true}/>
         </TouchableOpacity>
-        {listEvents()}
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          {listEvents()}
+        </ScrollView>
         </View>
       </SideMenu>
     );
