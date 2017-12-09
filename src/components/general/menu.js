@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity,View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
+import    ImageProfile  from './imageProfile';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -18,10 +19,7 @@ export default class Menu extends Component {
           <Text style={styles.textPerfil}>Meu Perfil</Text>
         </View>
         <View style={styles.positionPhoto}>
-          <Image
-            style={styles.imagePhoto}
-            source={require('../../assets/images/user_photo.jpg')}
-          />
+          <ImageProfile />
         </View>
         <View style={styles.positionTextStart}>
           <Text style={styles.textTitle}>Idade</Text>
@@ -79,7 +77,8 @@ const styles = StyleSheet.create({
   imagePhoto: {
     width: win.width/2.5,
     height: win.width/2.5,
-    borderRadius: 100
+    borderWidth: 0.5,
+    borderColor: '#7e7e7e'
   },
   textPerfil: {
     fontSize: 25,

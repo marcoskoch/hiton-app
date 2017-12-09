@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity,Image, Text } from 'react-native';
-import    Topo      from './general/topo';
-import    Menu      from './general/menu';
-import    SideMenu  from 'react-native-side-menu';
+import { ScrollView, View, StyleSheet, Dimensions,TextInput, TouchableOpacity,Image, Text } from 'react-native';
+import    Topo          from './general/topo';
+import    Menu          from './general/menu';
+import    ImageProfile  from './general/imageProfile';
+import    InputConfig   from './general/inputConfig';
+import    SideMenu      from 'react-native-side-menu';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -41,6 +43,10 @@ export default class ProfileUser extends Component {
           </TouchableOpacity>
           <View>
           {photoProfile()}
+          <InputConfig title={"Nome"} />
+          <InputConfig title={"Email"} />
+          <InputConfig title={"Teste"} />
+          <InputConfig title={"Teste"} />
           </View>
         </View>
       </SideMenu>
@@ -51,11 +57,20 @@ export default class ProfileUser extends Component {
 const photoProfile = () => {
   return (
     <View style={styles.positionPhoto}>
-      <Image
-        style={styles.imagePhoto}
-        source={require('../assets/images/user_photo.jpg')}
+      <ImageProfile/>
+      <Text style={styles.textImage}> Alterar Foto do perfil </Text>
+    </View>
+  );
+}
+
+const nomeProfile = () => {
+  return (
+    <View style={styles.positionInput}>
+      <Text style={styles.titleInput}>Nome</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Nome"
       />
-      <Text style={styles.colorTextImage}> Alterar Foto do perfil </Text>
     </View>
   );
 }
@@ -68,15 +83,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   positionPhoto: {
-    marginTop: 20,
-    alignItems: 'center'
+    paddingTop:10,
+    backgroundColor: '#e8e8e8',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#d3d3d3',
   },
-  colorTextImage: {
-    color: primaryColor
-  },
-  imagePhoto: {
-    width: win.width/2.5,
-    height: win.width/2.5,
-    borderRadius: 100
-  },
+  textImage: {
+    color: primaryColor,
+    marginTop: 5,
+    marginBottom:15
+  }
 });
