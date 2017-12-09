@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import NavigationBar from 'react-native-navbar';
+
 class Title extends Component {
   render() {
     return (
@@ -39,6 +40,7 @@ class Topo extends Component {
         <NavigationBar style={{backgroundColor: '#2d7bdc'}}
           title={<Title title={this.props.title}/>}
           leftButton={<IconMenu title={this.props.showMenu}/>}
+          tintColor={'#2d7bdc'}
         />
       </View>
     );

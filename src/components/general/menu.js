@@ -9,6 +9,8 @@ export default class Menu extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.backgroundLogin}>
+        <View style={styles.colorNavigation}>
+        </View>
         <View style={styles.positionTextEnd}>
           <Text style={styles.textEditar}>Editar</Text>
         </View>
@@ -27,7 +29,7 @@ export default class Menu extends Component {
           <Text style={styles.textTitle}>Gênero</Text>
           <Text style={styles.textSubTitle}>Feminino</Text>
         </View>
-        <TouchableOpacity style={styles.positionTextMenu}>
+        <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('ListUser')}>
           <Text style={styles.textTitle}>Meus Hits</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.positionTextStart}>
@@ -42,6 +44,10 @@ export default class Menu extends Component {
 }
 
 const styles = StyleSheet.create({
+  colorNavigation: {
+    backgroundColor: primaryColor,
+    height:20
+  },
   backgroundLogin: {
     backgroundColor: primaryColor,
     flex: 1,
@@ -76,14 +82,14 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   textPerfil: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#FFF',
     justifyContent: 'center',
     alignItems: 'center'
     // fontFamily: 'segoeuil'
   },
   textTitle: {
-    fontSize: 25,
+    fontSize: 20,
     color: '#FFF',
     justifyContent: 'center',
     alignItems: 'center'

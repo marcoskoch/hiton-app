@@ -1,21 +1,51 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Button, Image, Dimensions } from 'react-native';
+import { View, StyleSheet,TouchableOpacity, Text, Image, Dimensions } from 'react-native';
+import HideableView from '../customComponent/HideableView';
+import DoubleClick from '../customComponent/DoubleClick';
+
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 class CardUser extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          visible: false
+      };
+      this.toggle = this.toggle.bind(this);
+  }
+  toggle() {
+      this.setState({
+          visible: !this.state.visible
+      });
+      setTimeout(() => this.setState({
+          visible: !this.state.visible
+      }), 700);
+  }
   render () {
+    const item = this.props.item;
     return (
       <View style={styles.cardView}>
-          <View  style={styles.cardImage}>
-            <Image
-              style={styles.imageEvent}
-              source={{uri: 'https://pbs.twimg.com/profile_images/414650084614471680/1rplm2_-.jpeg'}}
-            />
-          </View>
-          <View style={styles.viewText}>
-            <Text style={styles.nameTitle}>Bianca Furtado, 21</Text>
-          </View>
+        <DoubleClick onClick={this.toggle}>
+            <View style={styles.cardImage}>
+              <View>
+                <Image
+                  style={styles.imageEvent}
+                  source={{uri: item.photo}}
+                />
+              </View>
+              <HideableView visible={this.state.visible} duration={250}>
+                <Image
+                  style={styles.imageDoubleTap}
+                  source={require('../../assets/images/HIT-On.png')}
+                />
+              </HideableView>
+            </View>
+
+            <View style={styles.viewText}>
+              <Text style={styles.nameTitle}>{item.name}, {item.year}</Text>
+            </View>
+          </DoubleClick>
       </View>
     );
   }
@@ -29,15 +59,28 @@ const styles = StyleSheet.create({
     marginRight: 30,
     height: win.width-10
   },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
   cardImage: {
     alignItems: 'center',
-    height: win.width-60
+    height: win.width-60,
+    backgroundColor: '#000000'
   },
   imageEvent: {
     flex: 1,
     alignSelf: 'stretch',
     width:win.width-60,
-    height:win.width-60
+    height:win.width-60,
+    opacity: 0.9
+  },
+  imageDoubleTap: {
+    width:120,
+    height:120,
+    alignItems: 'center',
+    marginTop: -(win.width+60)/2
+
   },
   viewText: {
     flexDirection: 'row',

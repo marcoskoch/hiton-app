@@ -25,8 +25,15 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
 		<dict>
-			<key>NSAllowsArbitraryLoads</key> <true/>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -44,17 +51,6 @@
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>segoeuil.ttf</string>
