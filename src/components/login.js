@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text,TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput } from 'react-native';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -32,8 +32,8 @@ class Login extends Component {
             placeholder="Senha"
             onChangeText={(text) => this.setState({text})}
           />
-        </View>
 
+        </View>
       </View>
     );
   }

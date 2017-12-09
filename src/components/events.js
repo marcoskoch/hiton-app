@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, Button, Alert } from 'react-native';
-import Topo from './general/topo';
-import CardEvent from './general/cardEvent';
-import    Menu from './general/menu';
-
-import SideMenu from 'react-native-side-menu';
+import { ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from 'react-native';
+import  Topo      from './general/topo';
+import  CardEvent from './general/cardEvent';
+import  Menu      from './general/menu';
+import  SideMenu  from 'react-native-side-menu';
 
 const win = Dimensions.get('window');
 const primaryColor = '#FFFFFF';

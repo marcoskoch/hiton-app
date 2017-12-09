@@ -11,9 +11,9 @@ export default class Menu extends Component {
       <View style={styles.backgroundLogin}>
         <View style={styles.colorNavigation}>
         </View>
-        <View style={styles.positionTextEnd}>
+        <TouchableOpacity style={styles.positionTextEnd} onPress={() => navigate('ProfileUser')}>
           <Text style={styles.textEditar}>Editar</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.positionTextCenter}>
           <Text style={styles.textPerfil}>Meu Perfil</Text>
         </View>

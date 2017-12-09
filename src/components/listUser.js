@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Alert, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import    Topo      from './general/topo';
 import    Menu      from './general/menu';
 import    CardUser  from './general/cardUser';
-
-import    SideMenu from 'react-native-side-menu';
+import    SideMenu  from 'react-native-side-menu';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -86,8 +85,6 @@ export default class ListUser extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.doubleClick = this.doubleClick.bind(this);
-
     this.state = {
       isOpen: false
     };
@@ -97,10 +94,6 @@ export default class ListUser extends Component {
     this.setState({
       isOpen: !this.state.isOpen,
     });
-  }
-
-  doubleClick() {
-
   }
 
   updateMenuState(isOpen) {
