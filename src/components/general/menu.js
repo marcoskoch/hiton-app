@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity,View, StyleSheet, Dimensions, Image, TextInput, Button } from 'react-native';
+import { Text, TouchableOpacity,View, StyleSheet, Dimensions, Image, TextInput, Button, AsyncStorage } from 'react-native';
 import    ImageProfile  from './imageProfile';
 
 const win = Dimensions.get('window');
@@ -12,9 +12,6 @@ export default class Menu extends Component {
       <View style={styles.backgroundLogin}>
         <View style={styles.colorNavigation}>
         </View>
-        <TouchableOpacity style={styles.positionTextEnd} onPress={() => navigate('ProfileUser')}>
-          <Text style={styles.textEditar}>Editar</Text>
-        </TouchableOpacity>
         <View style={styles.positionTextCenter}>
           <Text style={styles.textPerfil}>Meu Perfil</Text>
         </View>
@@ -30,7 +27,7 @@ export default class Menu extends Component {
         <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('ListUser')}>
           <Text style={styles.textTitle}>Meus Hits</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.positionTextStart}>
+        <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('ProfileUser')}>
           <Text style={styles.textTitle}>Configuração</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('Login')}>
