@@ -5,19 +5,20 @@ const primaryColor = '#2d7bdc';
 
 class CardEvent extends Component {
   render () {
+    const item = this.props.item;
     return (
       <View style={styles.cardView}>
           <View  style={styles.cardImage}>
-            <Image
-              style={styles.imageEvent}
-              source={{uri: 'https://scontent.fpoa9-1.fna.fbcdn.net/v/t1.0-9/22814256_1146151832183032_8167596211832293615_n.jpg?oh=e408d73e7644839ccda3146d145a7d4f&oe=5AA32674'}}
-            />
+          <Image
+            style={styles.imageEvent}
+            source={{ uri: item.photo }}
+          />
           </View>
           <View style={styles.viewText}>
-            <Text style={styles.dateTitle}>21/10</Text>
+            <Text style={styles.dateTitle}>{item.dateStart}</Text>
             <View>
-              <Text style={styles.nameTitle}>Baile da Provoca</Text>
-              <Text style={styles.localTitle}>Provocateur</Text>
+              <Text style={styles.nameTitle}>{item.name}</Text>
+              <Text style={styles.localTitle}>{item.local} - {item.city}</Text>
             </View>
           </View>
       </View>

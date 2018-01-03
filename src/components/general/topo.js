@@ -7,7 +7,9 @@ class Title extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.txtTitulo}>Hit On</Text>
+        <Text style={styles.txtTitulo}>
+          {this.props.title}
+        </Text>
       </View>
     );
   }
@@ -15,11 +17,19 @@ class Title extends Component {
 
 class IconMenu extends Component {
   render() {
-    return (
-      <View style={styles.icon}>
-        <Icon name="menu" size={18} color="#FFF" />
-      </View>
-    );
+    if (!this.props.showMenu) {
+      return (
+        <View style={styles.icon}>
+          <Icon name="menu" size={20} color="#FFF" />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.icon}>
+          <Icon name="arrow-left" size={18} color="#FFF" />
+        </View>
+      );
+    }
   }
 }
 
@@ -28,8 +38,9 @@ class Topo extends Component {
     return (
       <View>
         <NavigationBar style={{backgroundColor: '#2d7bdc'}}
-          title={<Title/>}
-          leftButton={<IconMenu/>}
+          title={<Title title={this.props.title}/>}
+          leftButton={<IconMenu title={this.props.showMenu}/>}
+          tintColor={'#2d7bdc'}
         />
       </View>
     );
@@ -40,11 +51,11 @@ export default Topo;
 
 const styles = StyleSheet.create({
   txtTitulo: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#FFF',
     justifyContent: 'center',
     alignItems: 'center',
-    // fontFamily: 'segoeuil'
+    //fontFamily: 'segoeuil'
   },
   icon: {
     marginLeft: 10,
