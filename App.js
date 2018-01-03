@@ -10,10 +10,11 @@ import Events from './src/components/events';
 import ProfileUser from './src/components/profileUser';
 
 export const SimpleApp = StackNavigator({
+  ProfileUser:  { screen: ProfileUser },
   Login:        { screen: Login },
   ListUser:     { screen: ListUser },
   Events:       { screen: Events },
-  ProfileUser:  { screen: ProfileUser },
+
 });
 export default class App extends Component {
   render() {

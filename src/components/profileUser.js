@@ -4,6 +4,8 @@ import    Topo          from './general/topo';
 import    Menu          from './general/menu';
 import    ImageProfile  from './general/imageProfile';
 import    InputConfig   from './general/inputConfig';
+import    TextConfig    from './general/textConfig';
+import    SliderConfig  from './general/sliderConfig';
 import    SideMenu      from 'react-native-side-menu';
 
 const win = Dimensions.get('window');
@@ -45,13 +47,21 @@ export default class ProfileUser extends Component {
           {photoProfile()}
           <InputConfig title={"Nome"} />
           <InputConfig title={"Email"} />
-          <InputConfig title={"Teste"} />
-          <InputConfig title={"Teste"} />
+          <TextConfig title={"Facebook"} />
+          {lineProfile()}
+          <SliderConfig title={"Idade"} />
           </View>
         </View>
       </SideMenu>
     );
   }
+}
+
+const lineProfile = () => {
+  return (
+    <View style={styles.positionLine}>
+    </View>
+  );
 }
 
 const photoProfile = () => {
@@ -88,6 +98,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#d3d3d3',
+  },
+  positionLine: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#d3d3d3'
   },
   textImage: {
     color: primaryColor,
