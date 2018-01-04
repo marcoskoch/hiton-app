@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions,TextInput, TouchableOpacity,Image, Text } from 'react-native';
+import { ScrollView, View, StyleSheet, Dimensions,TextInput, TouchableOpacity,Image, Text, Alert } from 'react-native';
 import    Topo          from './general/topo';
 import    Menu          from './general/menu';
-import    ImageProfile  from './general/imageProfile';
 import    InputConfig   from './general/inputConfig';
 import    TextConfig    from './general/textConfig';
 import    SliderConfig  from './general/sliderConfig';
 import    SideMenu      from 'react-native-side-menu';
+import ImagePicker from 'react-native-image-picker';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -16,8 +16,43 @@ export default class ProfileUser extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      avatarSource: null
     };
+  }
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
   }
 
   toggle() {
@@ -29,11 +64,24 @@ export default class ProfileUser extends Component {
   updateMenuState(isOpen) {
     this.setState({ isOpen });
   }
+
+  saveProfile = () => {
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+
   static navigationOptions = {
     header:  null
   };
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
+
     return (
       <SideMenu
         isOpen={this.state.isOpen}
@@ -44,13 +92,25 @@ export default class ProfileUser extends Component {
             <Topo title='Hit On' showMenu={true}/>
           </TouchableOpacity>
           <View>
-          {photoProfile()}
-          <InputConfig title={"Nome"} />
+          <View style={styles.positionPhoto}>
+          <Image borderRadius={65}
+            style={styles.imagePhoto}
+            source={this.state.avatarSource} />
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <Text style={styles.textImage}> Alterar Foto do perfil </Text>
+            </TouchableOpacity>
+          </View>
+          <InputConfig title={"Nome"} input={"teste"}/>
           <InputConfig title={"Email"} />
           <TextConfig title={"Facebook"} />
           {lineProfile()}
-          <SliderConfig title={"Idade"} />
+          <InputConfig title={"Idade Min"} />
+          <InputConfig title={"Idade Máx"} />
+          <InputConfig title={"Distância Máx"} />
           </View>
+          <TouchableOpacity style={styles.positionText} onPress={this.saveProfile}>
+            <Text style={styles.textEntrar}>Salvar</Text>
+          </TouchableOpacity>
         </View>
       </SideMenu>
     );
@@ -60,15 +120,6 @@ export default class ProfileUser extends Component {
 const lineProfile = () => {
   return (
     <View style={styles.positionLine}>
-    </View>
-  );
-}
-
-const photoProfile = () => {
-  return (
-    <View style={styles.positionPhoto}>
-      <ImageProfile/>
-      <Text style={styles.textImage}> Alterar Foto do perfil </Text>
     </View>
   );
 }
@@ -107,5 +158,22 @@ const styles = StyleSheet.create({
     color: primaryColor,
     marginTop: 5,
     marginBottom:15
-  }
+  },
+  positionText: {
+    alignItems: 'center',
+    marginTop: 15
+  },
+  textEntrar: {
+    fontSize: 20,
+    color: primaryColor,
+    justifyContent: 'center',
+    alignItems: 'center'
+    // fontFamily: 'segoeuil'
+  },
+  imagePhoto: {
+    width: win.width/3,
+    height: win.width/3,
+    borderWidth: 0.5,
+    borderColor: '#7e7e7e'
+  },
 });

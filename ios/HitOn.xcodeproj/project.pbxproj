@@ -50,7 +50,11 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		BD909534A24B4F02A72E7B70 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7483C26BD3EE41F89FE66792 /* Ionicons.ttf */; };
 		DC1B6C34A4F649ED880E8C78 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6112D0DC56244E86957A7677 /* Feather.ttf */; };
+<<<<<<< HEAD
 		1EB8559FD3BF4F35BB0D0350 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B90313F4C74F3F8220E60A /* libRCTFBSDK.a */; };
+=======
+		76BD4B781A034F41BAFD9B00 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6862F358B24141949CA17BCF /* libRNImagePicker.a */; };
+>>>>>>> develop
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -321,8 +325,13 @@
 		AE07D99FBF1D46FFA96E2616 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		D05F804BB9E9461BAA121447 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D610D719309647F2893EBB4C /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		09E02202602A4125A7619262 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDK.xcodeproj"; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		E3B90313F4C74F3F8220E60A /* libRCTFBSDK.a */ = {isa = PBXFileReference; name = "libRCTFBSDK.a"; path = "libRCTFBSDK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+=======
+		509EC826A12A4F7B8340A076 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		6862F358B24141949CA17BCF /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> develop
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,7 +361,11 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				96A5A83A03874814A24E8830 /* libRNVectorIcons.a in Frameworks */,
+<<<<<<< HEAD
 				1EB8559FD3BF4F35BB0D0350 /* libRCTFBSDK.a in Frameworks */,
+=======
+				76BD4B781A034F41BAFD9B00 /* libRNImagePicker.a in Frameworks */,
+>>>>>>> develop
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,7 +544,11 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				21525FF5FB274D1D9A8BEDCE /* RNVectorIcons.xcodeproj */,
+<<<<<<< HEAD
 				09E02202602A4125A7619262 /* RCTFBSDK.xcodeproj */,
+=======
+				509EC826A12A4F7B8340A076 /* RNImagePicker.xcodeproj */,
+>>>>>>> develop
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1138,13 +1155,18 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+=======
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+>>>>>>> develop
 				);
 				INFOPLIST_FILE = HitOnTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1164,13 +1186,18 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+=======
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+>>>>>>> develop
 				);
 				INFOPLIST_FILE = HitOnTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1191,7 +1218,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+=======
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+>>>>>>> develop
 				);
 				INFOPLIST_FILE = HitOn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1213,7 +1244,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+=======
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+>>>>>>> develop
 				);
 				INFOPLIST_FILE = HitOn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1242,12 +1277,17 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+=======
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+>>>>>>> develop
 				);
 				INFOPLIST_FILE = "HitOn-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1277,12 +1317,17 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+<<<<<<< HEAD
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+=======
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+>>>>>>> develop
 				);
 				INFOPLIST_FILE = "HitOn-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1313,6 +1358,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.HitOn-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1337,6 +1383,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.HitOn-tvOSTests";

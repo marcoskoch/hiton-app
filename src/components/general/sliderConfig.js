@@ -18,6 +18,7 @@ export default class SliderConfig extends Component {
     return (
       <View style={styles.positionInput}>
         <Text style={styles.titleInput}>{this.props.title}</Text>
+        <Text style={styles.textInput}>De {this.state.multiSliderValue[0]} a {this.state.multiSliderValue[1]} anos</Text>
         <View style={styles.sliderOne}>
           <MultiSlider
             values={[this.state.multiSliderValue[0], this.state.multiSliderValue[1]]}
@@ -29,9 +30,7 @@ export default class SliderConfig extends Component {
             allowOverlap
             snapped
           />
-          <Text style={styles.textInput}>De {this.state.multiSliderValue[0]} a {this.state.multiSliderValue[1]} anos</Text>
         </View>
-
       </View>
     );
   }

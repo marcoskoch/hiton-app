@@ -3,6 +3,10 @@ import { View, StyleSheet, Dimensions, Text, TextInput } from 'react-native';
 const win = Dimensions.get('window');
 
 export default class InputConfig extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: props.input };
+  }
   render() {
     return (
       <View style={styles.positionInput}>
@@ -10,11 +14,14 @@ export default class InputConfig extends Component {
         <TextInput
           style={styles.textInput}
           placeholder={this.props.title}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
         />
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   positionInput: {

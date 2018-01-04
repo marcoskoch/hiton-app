@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, TouchableOpacity, View, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView, TouchableOpacity, View, StyleSheet, Dimensions, AsyncStorage } from 'react-native';
 import  Topo      from './general/topo';
 import  CardEvent from './general/cardEvent';
 import  Menu      from './general/menu';
@@ -50,14 +50,32 @@ const listEvenstMock = [
   }
 ];
 
-const listEvents = () => {
+const saveEvent = (navigate ,itemId, itemName) => {
+  try {
+    AsyncStorage.setItem('idEvent', itemId.toString());
+    AsyncStorage.setItem('nameEvent', itemName.toString());
+    navigate('QrCode');
+  } catch (error) {
+    Alert.alert(
+      'Ops',
+      'Tente novamente mais tarde!',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+}
+
+const listEvents = (navigate) => {
   return (
     <View>
       {listEvenstMock.map(item => (
-        <CardEvent
-        key   = {item.id}
-        item = {item}
-        />
+        <TouchableOpacity key  = {item.id} style={styles.positionText} onPress={() => saveEvent(navigate ,item.id, item.name)}>
+          <CardEvent
+            item = {item}
+          />
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -87,6 +105,7 @@ class Events extends Component {
   };
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
+    const { navigate } = this.props.navigation;
     return (
       <SideMenu
         isOpen={this.state.isOpen}
@@ -97,7 +116,7 @@ class Events extends Component {
           <Topo title='Hit On' showMenu={true}/>
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          {listEvents()}
+          {listEvents(navigate)}
         </ScrollView>
         </View>
       </SideMenu>
