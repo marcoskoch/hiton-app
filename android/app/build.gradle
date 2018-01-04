@@ -137,11 +137,8 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
     compile project(':react-native-fbsdk')
-=======
     compile project(':react-native-image-picker')
->>>>>>> develop
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:26.1.0"

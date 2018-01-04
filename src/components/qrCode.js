@@ -4,7 +4,6 @@ import    Topo      from './general/topo';
 import    Menu      from './general/menu';
 import    CardUser  from './general/cardUser';
 import    SideMenu  from 'react-native-side-menu';
-import QRCodeScanner from 'react-native-qrcode-scanner';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
