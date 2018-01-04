@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput } from 'react-native';
+import { createStore } from 'redux'
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';

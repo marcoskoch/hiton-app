@@ -16,7 +16,7 @@ export default class Menu extends Component {
           <Text style={styles.textPerfil}>Meu Perfil</Text>
         </View>
         <View style={styles.positionPhoto}>
-          <ImageProfile />
+          <ImageProfile image='../../assets/images/user_photo.jpg'/>
         </View>
         <View style={styles.positionTextStart}>
           <Text style={styles.textTitle}>Idade</Text>

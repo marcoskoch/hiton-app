@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { ScrollView, View, StyleSheet, Dimensions,TextInput, TouchableOpacity,Image, Text, Alert } from 'react-native';
 import    Topo          from './general/topo';
 import    Menu          from './general/menu';
-import    ImageProfile  from './general/imageProfile';
 import    InputConfig   from './general/inputConfig';
 import    TextConfig    from './general/textConfig';
 import    SliderConfig  from './general/sliderConfig';
 import    SideMenu      from 'react-native-side-menu';
-import    ImagePicker   from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-picker';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -17,7 +16,8 @@ export default class ProfileUser extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      avatarSource: null
     };
   }
   selectPhotoTapped() {
@@ -92,7 +92,14 @@ export default class ProfileUser extends Component {
             <Topo title='Hit On' showMenu={true}/>
           </TouchableOpacity>
           <View>
-          {photoProfile()}
+          <View style={styles.positionPhoto}>
+          <Image borderRadius={65}
+            style={styles.imagePhoto}
+            source={this.state.avatarSource} />
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <Text style={styles.textImage}> Alterar Foto do perfil </Text>
+            </TouchableOpacity>
+          </View>
           <InputConfig title={"Nome"} input={"teste"}/>
           <InputConfig title={"Email"} />
           <TextConfig title={"Facebook"} />
@@ -115,18 +122,6 @@ const lineProfile = () => {
     <View style={styles.positionLine}>
     </View>
   );
-}
-
-const photoProfile = () => {
-  return (
-    <View style={styles.positionPhoto}>
-      <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-        <ImageProfile/>
-      </TouchableOpacity>
-      <Text style={styles.textImage}> Alterar Foto do perfil </Text>
-    </View>
-  );
-
 }
 
 const nomeProfile = () => {
@@ -174,5 +169,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
     // fontFamily: 'segoeuil'
+  },
+  imagePhoto: {
+    width: win.width/3,
+    height: win.width/3,
+    borderWidth: 0.5,
+    borderColor: '#7e7e7e'
   },
 });
