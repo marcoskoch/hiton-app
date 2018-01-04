@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View
-} from 'react-native';
+import { View } from 'react-native';
 
 import { StackNavigator } from 'react-navigation';
 import ListUser from './src/components/listUser';

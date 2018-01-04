@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput } from 'react-native';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -8,32 +9,34 @@ class Login extends Component {
   static navigationOptions = {
     header:  null
   };
+
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionLogo}>
-          <Image
-            style={styles.imageLogo}
-            source={require('../assets/images/HIT-On.png')}
-          />
+          <Image style={styles.imageLogo}
+            source={require('../assets/images/HIT-On.png')}/>
         </View>
-        <TouchableOpacity style={styles.positionText} onPress={() => navigate('Events')}>
-          <Text style={styles.textEntrar}>Entrar</Text>
-        </TouchableOpacity>
-        <View style={styles.positionInput}>
-          <TextInput
-            style={styles.input}
-            placeholder="Login"
-            onChangeText={(text) => this.setState({text})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Senha"
-            onChangeText={(text) => this.setState({text})}
-          />
 
-        </View>
+        <LoginButton
+          publishPermissions={["publish_actions"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("Login failed with error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("Login was cancelled");
+              } else {
+                console.log(arguments);
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data);
+                  })
+              }
+            }
+          }
+          onLogoutFinished={() => alert("User logged out")}/>
       </View>
     );
   }
