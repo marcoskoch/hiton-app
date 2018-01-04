@@ -10,22 +10,6 @@ class Login extends Component {
     header:  null
   };
 
-  // Login() {
-  //   LoginManager.logInWithReadPermissions(['public_profile']).then(
-  //     function(result) {
-  //       if (result.isCancelled) {
-  //         alert('Login was cancelled');
-  //       } else {
-  //         alert('Login was successful with permissions: '
-  //           + result.grantedPermissions.toString());
-  //       }
-  //     },
-  //     function(error) {
-  //       alert('Login failed with error: ' + error);
-  //     }
-  //   );
-  // };
-
   render() {
     const { navigate } = this.props.navigation;
     return (
