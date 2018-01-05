@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, AsyncStorage, Alert } from 'react-native';
+import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, AsyncStorage, Alert, NavigatorIOS, Linking } from 'react-native';
 import    Topo      from './general/topo';
 import    Menu      from './general/menu';
 import    CardUser  from './general/cardUser';
@@ -46,7 +46,7 @@ export default class QrCode extends Component {
           this.setState({"idEvent": value});
       }).done();
   }
-  
+
   getInitialState() {
       return { };
   }
@@ -81,6 +81,22 @@ export default class QrCode extends Component {
         </TouchableOpacity>
         <View contentContainerStyle={styles.contentContainer}>
         </View>
+          <NavigatorIOS
+            initialRoute={{
+              component: QRCodeScanner,
+              title: 'Scan Code',
+              passProps: {
+                onRead: this.onSuccess.bind(this),
+                topContent: (
+                  <View> </View>
+                ),
+                bottomContent: (
+                  <View> </View>
+                ),
+              },
+            }}
+            style={{ flex: 1 }}
+          />
         </View>
       </SideMenu>
     );
