@@ -41,6 +41,11 @@ const saveEvent = (navigate ,itemId, itemName) => {
 }
 
 
+
+
+
+
+
 class Events extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +56,13 @@ class Events extends Component {
       visibleLoading: true,
       listaItens: [],
       facebookToken: '',
-      baseURL: 'https://graph.facebook.com/v2.11/tr3snh/events?access_token='
+      baseURL_1: 'https://graph.facebook.com/v2.11/tr3snh/events?since=1513777020&access_token=',
+      baseURL_2: 'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since=1513777020&access_token=',
+      baseURL_3: 'https://graph.facebook.com/v2.11/farmsbar/events?since=1513777020&access_token=',
+      baseURL_4: 'https://graph.facebook.com/v2.11/innloungebarnh/events?since=1513777020&access_token=',
+      baseURL_5: 'https://graph.facebook.com/v2.11/gruposambary/events?since=1513777020&access_token=',
+      baseURL_6: 'https://graph.facebook.com/v2.11/maoribeachclub/events?since=1513777020&access_token=',
+      baseURL_7: 'https://graph.facebook.com/v2.11/Provocateurpoa/events?since=1513777020&access_token='
     };
   }
 
@@ -69,16 +80,21 @@ class Events extends Component {
   };
 
   componentWillMount() {
+    var listEvents = {};
     AsyncStorage.getItem("facebookToken").then((value) => {
         this.setState({"facebookToken": value});
-        axios.get(this.state.baseURL+this.state.facebookToken)
-    			.then(response => {
-            this.setState({ listaItens: response.data.data });
+        axios.get(this.state.baseURL_1+this.state.facebookToken).then(response => {
+          this.setState({ listaItens: this.state.listaItens.push(response) });
+          axios.get(this.state.baseURL_6+this.state.facebookToken).then(response => {
+            this.setState({ listaItens: this.state.listaItens.push(response) });
             this.setState({ visibleLoading: false });
-          })
-    			.catch(() => { console.log('Erro ao recuperar os dados'); });
+          }).catch(() => {
+            console.log('Erro ao recuperar os dados');
+          });
+        }).catch(() => {
+          console.log('Erro ao recuperar os dados');
+        });
     }).done();
-
   }
 
   getImageEventFacebook(idEvent){
