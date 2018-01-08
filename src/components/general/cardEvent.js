@@ -12,13 +12,13 @@ class CardEvent extends Component {
           <Image
             style={styles.imageEvent}
             source={{ uri: item.photo }}
-          />
+          /> 
           </View>
           <View style={styles.viewText}>
-            <Text style={styles.dateTitle}>{item.dateStart}</Text>
+            <Text style={styles.dateTitle}>{item.start_time}</Text>
             <View>
               <Text style={styles.nameTitle}>{item.name}</Text>
-              <Text style={styles.localTitle}>{item.local} - {item.city}</Text>
+              {/* <Text style={styles.localTitle}>{item.place.name} - {item.place.location.city}</Text> */}
             </View>
           </View>
       </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, AsyncStorage } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 const win = Dimensions.get('window');
@@ -7,16 +7,21 @@ const primaryColor = '#2d7bdc';
 
 class Login extends Component {
   static navigationOptions = {
-    header:  null
+    header: null
   };
 
   render() {
     const { navigate } = this.props.navigation;
+    AccessToken.getCurrentAccessToken().then(
+      (data) => {
+        if(data != null)
+          navigate('Events');
+      })
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionLogo}>
           <Image style={styles.imageLogo}
-            source={require('../assets/images/HIT-On.png')}/>
+            source={require('../assets/images/HIT-On.png')} />
         </View>
 
         <LoginButton
@@ -32,11 +37,14 @@ class Login extends Component {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
                     console.log(data);
+                    //post pra pegar o token da aplicacaos
+                    //post salvar usuario
+                    navigate('Events');
                   })
               }
             }
           }
-          onLogoutFinished={() => alert("User logged out")}/>
+          onLogoutFinished={() => alert("User logged out")} />
       </View>
     );
   }
@@ -59,8 +67,8 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   imageLogo: {
-    width: win.width/2.5,
-    height: win.width/2.5
+    width: win.width / 2.5,
+    height: win.width / 2.5
   },
   textEntrar: {
     fontSize: 30,

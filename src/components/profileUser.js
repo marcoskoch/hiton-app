@@ -8,6 +8,8 @@ import    SliderConfig  from './general/sliderConfig';
 import    SideMenu      from 'react-native-side-menu';
 import ImagePicker from 'react-native-image-picker';
 
+import FormProfile from './FormProfile';
+
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
@@ -92,50 +94,21 @@ export default class ProfileUser extends Component {
             <Topo title='Hit On' showMenu={true}/>
           </TouchableOpacity>
           <View>
-          <View style={styles.positionPhoto}>
-          <Image borderRadius={65}
-            style={styles.imagePhoto}
-            source={this.state.avatarSource} />
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <Text style={styles.textImage}> Alterar Foto do perfil </Text>
-            </TouchableOpacity>
+            <View style={styles.positionPhoto}>
+            <Image borderRadius={65}
+              style={styles.imagePhoto}
+              source={this.state.avatarSource} />
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <Text style={styles.textImage}> Alterar Foto do perfil </Text>
+              </TouchableOpacity>
+            </View>
+            <FormProfile />
           </View>
-          <InputConfig title={"Nome"} input={"teste"}/>
-          <InputConfig title={"Email"} />
-          <TextConfig title={"Facebook"} />
-          {lineProfile()}
-          <InputConfig title={"Idade Min"} />
-          <InputConfig title={"Idade Máx"} />
-          <InputConfig title={"Distância Máx"} />
-          </View>
-          <TouchableOpacity style={styles.positionText} onPress={this.saveProfile}>
-            <Text style={styles.textEntrar}>Salvar</Text>
-          </TouchableOpacity>
         </View>
       </SideMenu>
     );
   }
 }
-
-const lineProfile = () => {
-  return (
-    <View style={styles.positionLine}>
-    </View>
-  );
-}
-
-const nomeProfile = () => {
-  return (
-    <View style={styles.positionInput}>
-      <Text style={styles.titleInput}>Nome</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Nome"
-      />
-    </View>
-  );
-}
-
 
 const styles = StyleSheet.create({
   backgroundLogin: {
