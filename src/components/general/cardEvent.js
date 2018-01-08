@@ -4,23 +4,27 @@ const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 class CardEvent extends Component {
-  render () {
+  constructor(props) {
+    super(props);
+  };
+
+  render() {
     const item = this.props.item;
     return (
       <View style={styles.cardView}>
-          <View  style={styles.cardImage}>
+        <View style={styles.cardImage}>
           <Image
             style={styles.imageEvent}
-            source={{ uri: item.photo }}
-          /> 
+            source={{ uri: 'https://graph.facebook.com/v2.11/'+item.id+'/picture?type=large&access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD' }}
+          />
+        </View>
+        <View style={styles.viewText}>
+          {/* <Text style={styles.dateTitle}>{item.start_time}</Text> */}
+          <View>
+            <Text numberOfLines={1} style={styles.nameTitle}>{item.name}</Text>
+            <Text style={styles.localTitle}>{item.place.name} - Novo Hamburgo</Text>
           </View>
-          <View style={styles.viewText}>
-            <Text style={styles.dateTitle}>{item.start_time}</Text>
-            <View>
-              <Text style={styles.nameTitle}>{item.name}</Text>
-              {/* <Text style={styles.localTitle}>{item.place.name} - {item.place.location.city}</Text> */}
-            </View>
-          </View>
+        </View>
       </View>
     );
   }
@@ -46,8 +50,8 @@ const styles = StyleSheet.create({
   imageEvent: {
     flex: 1,
     alignSelf: 'stretch',
-    width:win.width-20,
-    height:150
+    width: win.width - 20,
+    height: 150
   },
   viewText: {
     flexDirection: 'row',

@@ -26,51 +26,7 @@ AccessToken.getCurrentAccessToken().then(
     facebookToken = data.AccessToken;
   })
 
-baseURL = 'https://graph.facebook.com/v2.11/tr3snh/events?access_token=EAAcGJNjINQkBAIjRDWrcuSezyBY5ojxpfM1yeJ0zuZBZBZCKjP0HXyKEZBK1yYSsXjSL6KmIklJ8jJBtwhJrfmTgc4DZAduf65T79ZB35ZBpNRoIiKoJwGBRfZCJeo0HgEZBFUdsuCZCwqpFkvnJKWcv5ZCFj8zVHyqwVDaOki3uxiow7Mwy6arRTofZBmgBySXytPNikI5ZAHDFhKKzmrVUsZAQzqAn56xw2T02cUZBKjdPGAxbQZDZD' + facebookToken;
-
-const listEvenstMock = [
-  {
-    id: 1,
-    name: 'Set List',
-    photo: 'https://s2.glbimg.com/QniQvR5D4_UJAEqkVKqFZtEZHBM=/s.glbimg.com/jo/g1/f/original/2014/12/14/620festa.jpg',
-    local: 'Provocatour',
-    city: 'Porto Alegre',
-    state: 'RS',
-    dateStart: '14/09',
-    timeStart: '23:00:00',
-    dateEnd: '15/09',
-    timeEnd: '05:00:00',
-    qrCode: '2312313892'
-  },
-  {
-    id: 2,
-    name: 'Deck com Sambary',
-    photo: 'https://s2.glbimg.com/QniQvR5D4_UJAEqkVKqFZtEZHBM=/s.glbimg.com/jo/g1/f/original/2014/12/14/620festa.jpg',
-    local: 'Três',
-    city: 'Novo Hamburgo',
-    state: 'RS',
-    dateStart: '14/09',
-    timeStart: '22:30:00',
-    dateEnd: '15/09',
-    timeEnd: '05:30:00',
-    qrCode: '2312139237'
-  },
-  {
-    id: 3,
-    name: 'Funk U',
-    photo: 'https://s2.glbimg.com/QniQvR5D4_UJAEqkVKqFZtEZHBM=/s.glbimg.com/jo/g1/f/original/2014/12/14/620festa.jpg',
-    local: 'Arena do Grêmio',
-    city: 'Porto Alegre',
-    state: 'RS',
-    dateStart: '15/09',
-    timeStart: '13:30:00',
-    dateEnd: '16/09',
-    timeEnd: '02:00:00',
-    qrCode: '9854830275'
-  }
-];
-
-console.log(listEvenstMock);
+baseURL = 'https://graph.facebook.com/v2.11/tr3snh/events?access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD';
 
 const saveEvent = (navigate ,itemId, itemName) => {
   try {
@@ -119,7 +75,14 @@ class Events extends Component {
     axios.get(baseURL)
 			.then(response => { 
         this.setState({ listaItens: response.data.data });
-        console.log(this.state.listaItens); 
+      })
+			.catch(() => { console.log('Erro ao recuperar os dados'); });
+  }
+
+  getImageEventFacebook(idEvent){
+    axios.get('https://graph.facebook.com/v2.11/'+idEvent+'/picture?type=large&access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD')
+			.then(response => { 
+        return response.config.url;
       })
 			.catch(() => { console.log('Erro ao recuperar os dados'); });
   }
@@ -140,9 +103,10 @@ class Events extends Component {
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View>
             {this.state.listaItens.map(item => (
-              <TouchableOpacity key  = {item.id} style={styles.positionText} onPress={() => saveEvent(navigate ,item.id, item.name)}>
+              <TouchableOpacity key  = {item.id} style={styles.positionText} onPress={() => saveEvent(navigate ,item.id, item.name)} >
                 <CardEvent
                   item = {item}
+                  urlImageEventFacebook = {this.getImageEventFacebook(item.id)}
                 />
               </TouchableOpacity>
             ))}

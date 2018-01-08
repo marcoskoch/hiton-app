@@ -55,8 +55,19 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Key    :  Privacy - Camera Usage Description   
+$(PRODUCT_NAME) camera use</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) camera use</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) camera use</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) camera use</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>segoeuil.ttf</string>
@@ -86,16 +97,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Key    :  Privacy - Camera Usage Description   
-$(PRODUCT_NAME) camera use</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string/>
 </dict>
 </plist>

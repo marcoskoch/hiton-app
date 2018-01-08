@@ -33,10 +33,8 @@ class Login extends Component {
               } else if (result.isCancelled) {
                 alert("Login was cancelled");
               } else {
-                console.log(arguments);
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    console.log(data);
                     //post pra pegar o token da aplicacaos
                     //post salvar usuario
                     navigate('Events');

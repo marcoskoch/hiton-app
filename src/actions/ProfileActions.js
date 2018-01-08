@@ -51,7 +51,6 @@ export const modificaPhoto = (texto) => {
 }
 
 export const saveProfile = (profile) => {
-  console.log(profile)
     try {
       AsyncStorage.setItem('profile_name', profile.name.toString());
       AsyncStorage.setItem('profile_email', profile.email.toString());
