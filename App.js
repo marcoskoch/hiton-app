@@ -22,7 +22,7 @@ export const SimpleApp = StackNavigator({
 export default class App extends Component {
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: 'column' }}>
+      <View style={{flex: 1, flexDirection: 'column'}}>
         <Provider store={createStore(reducers)}>
           <SimpleApp />
         </Provider>

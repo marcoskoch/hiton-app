@@ -1,19 +1,141 @@
 import React , { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity, AsyncStorage, Alert  } from 'react-native';
 import { connect } from 'react-redux';
-import { modificaName, modificaEmail, modificaMaxYear, modificaMinYear, saveProfile } from '../actions/ProfileActions';
+import { modificaName, modificaEmail,
+  modificaMaxYear, modificaMinYear,
+  modificaGender, modificaPhone,
+  saveProfile } from '../actions/ProfileActions';
+import { Picker } from 'react-native-picker-dropdown'
+import { TextInputMask } from 'react-native-masked-text'
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 class formProfile extends Component {
-
-    _saveProfile() {
-        const { name, email, minYear, maxYear } = this.props;
-
-        this.props.saveProfile({ name, email, minYear, maxYear });
+    constructor(props, context) {
+      super(props, context)
+      this.state = {
+        profile_name: this.props.name,
+        profile_email: this.props.email,
+        profile_phone: this.props.phone,
+        profile_gender: this.props.gender,
+        profile_minyear: this.props.minyear,
+        profile_maxyear: this.props.maxyear,
+      }
+      this.setNome = this.setValueNome.bind(this)
+      this.setEmail = this.setValueEmail.bind(this)
+      this.setPhone = this.setValuePhone.bind(this)
+      this.setGender = this.setValueGender.bind(this)
+      this.setMinYear = this.setValueMinYear.bind(this)
+      this.setMaxYear = this.setValueMaxYear.bind(this)
     }
-    
+    componentDidMount() {
+      AsyncStorage.getItem("profile_name").then((value) => {
+          this.setState({"profile_name": value});
+      }).done();
+      AsyncStorage.getItem("profile_email").then((value) => {
+          this.setState({"profile_email": value});
+      }).done();
+      AsyncStorage.getItem("profile_phone").then((value) => {
+          this.setState({"profile_phone": value});
+      }).done();
+      AsyncStorage.getItem("profile_gender").then((value) => {
+          this.setState({"profile_gender": value});
+      }).done();
+      AsyncStorage.getItem("profile_minyear").then((value) => {
+          this.setState({"profile_minyear": value});
+      }).done();
+      AsyncStorage.getItem("profile_maxyear").then((value) => {
+          this.setState({"profile_maxyear": value});
+      }).done();
+    }
+
+    setValueNome(profile_name) {
+      this.setState({ profile_name })
+      this.props.modificaName(profile_name);
+    }
+
+    setValueEmail(profile_email) {
+      this.setState({ profile_email })
+      this.props.modificaName(profile_email);
+    }
+
+    setValuePhone(profile_phone) {
+      this.setState({ profile_phone })
+      this.props.modificaName(profile_phone);
+    }
+
+    setValueGender(profile_gender) {
+      this.setState({ profile_gender })
+      this.props.modificaGender(profile_gender);
+    }
+
+    setValueMinYear(profile_minyear) {
+      this.setState({ profile_minyear })
+      this.props.modificaName(profile_minyear);
+    }
+
+    setValueMaxYear(profile_maxyear) {
+      this.setState({ profile_maxyear })
+      this.props.modificaName(profile_maxyear);
+    }
+
+    _saveProfile(state) {
+        const name = state.profile_name;
+        const email = state.profile_email;
+        const minYear = state.profile_minyear;
+        const maxYear = state.profile_maxyear;
+        const gender = state.profile_gender;
+        const phone = state.profile_phone;
+        if(this.validProfile(state)) {
+            this.props.saveProfile({ name, email, minYear, maxYear, gender, phone });
+        }
+    }
+
+    validProfile(state) {
+      if (!this.validEmpty(state.profile_phone) || !this.validLength(state.profile_phone, 15)) {
+        this.alertProfile('Telefone inválido!');
+        return false;
+      } else if (!this.validEmpty(state.profile_minyear) || !this.validLength(state.profile_minyear, 2)) {
+        this.alertProfile('Idade Mínima inválida!');
+        return false;
+      } else if (!this.validEmpty(state.profile_maxyear) || !this.validLength(state.profile_maxyear, 2)) {
+        this.alertProfile('Idade Máxima inválida!');
+        return false;
+      } else if (state.profile_maxyear <= state.profile_minyear) {
+        this.alertProfile('Idade Máxima deve ser maior do que a idade mínima!');
+        return false;
+      }
+      return true;
+    }
+
+    alertProfile(msg) {
+      Alert.alert(
+        'Meus Dados',
+        msg,
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
+    }
+
+    validEmpty(value) {
+      if (value == null || value == '') {
+        return false;
+      }
+      return true;
+    }
+
+    validLength(value, length) {
+      if (value != null || value != '') {
+        if (value.length >= length) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     render(){
         return (
             <View>
@@ -22,8 +144,8 @@ class formProfile extends Component {
                     <TextInput
                     style={styles.textInput}
                     placeholder="Nome"
-                    value={this.props.name}
-                    onChangeText={texto => this.props.modificaName(texto) } 
+                    value={this.state.profile_name}
+                    onChangeText={texto => this.setNome(texto) }
                     />
                 </View>
                 <View style={styles.positionInput}>
@@ -31,29 +153,57 @@ class formProfile extends Component {
                     <TextInput
                     style={styles.textInput}
                     placeholder="E-mail"
-                    value={this.props.email}
-                    onChangeText={texto => this.props.modificaEmail(texto) } 
+                    keyboardType='email-address'
+                    value={this.state.profile_email}
+                    onChangeText={texto => this.setEmail(texto) }
                     />
+                </View>
+                <View style={styles.positionInput}>
+                    <Text style={styles.titleInput}>Telefone</Text>
+                    <TextInputMask
+          						ref="Telefone"
+          						type={'cel-phone'}
+          						style={styles.textInput}
+                      value={this.state.profile_phone}
+                      onChangeText={texto => this.setPhone(texto) }
+          					/>
+                </View>
+                <View style={styles.positionInput}>
+                  <Text style={styles.titleInput}>Gênero Interesse</Text>
+                  <Picker
+                    selectedValue={this.state.profile_gender}
+                    onValueChange={this.setGender}
+                    mode="dialog"
+                    style={styles.textInput}
+                    textStyle={styles.pickerText} >
+                    <Picker.Item label="Feminino" value="Feminino" />
+                    <Picker.Item label="Masculino" value="Masculino" />
+                    <Picker.Item label="Ambos" value="Ambos" />
+                  </Picker>
                 </View>
                 <View style={styles.positionInput}>
                     <Text style={styles.titleInput}>Idade Mínima</Text>
-                    <TextInput
-                    style={styles.textInput}
-                    placeholder="Idade Mínima"
-                    value={this.props.minYear}
-                    onChangeText={texto => this.props.modificaMinYear(texto) } 
-                    />
+                    <TextInputMask
+          						ref="Idade Mínima"
+          						type={'only-numbers'}
+          						style={styles.textInput}
+                      value={this.state.profile_minyear}
+                      maxLength={2}
+                      onChangeText={texto => this.setMinYear(texto) }
+          					/>
                 </View>
                 <View style={styles.positionInput}>
                     <Text style={styles.titleInput}>Idade Máxima</Text>
-                    <TextInput
-                    style={styles.textInput}
-                    placeholder="Idade Máxima"
-                    value={this.props.maxYear}
-                    onChangeText={texto => this.props.modificaMaxYear(texto) } 
-                    />
+                    <TextInputMask
+          						ref="Idade Máxima"
+          						type={'only-numbers'}
+          						style={styles.textInput}
+                      value={this.state.profile_maxyear}
+                      maxLength={2}
+                      onChangeText={texto => this.setMaxYear(texto) }
+          					/>
                 </View>
-                <TouchableOpacity style={styles.positionText} onPress={() => this._saveProfile()}>
+                <TouchableOpacity style={styles.positionText} onPress={() => this._saveProfile(this.state)}>
                     <Text style={styles.textEntrar}>Salvar</Text>
                 </TouchableOpacity>
             </View>
@@ -69,10 +219,12 @@ const lineProfile = () => {
 }
 
 const styles = StyleSheet.create({
-    
     positionLine: {
       borderBottomWidth: 1,
       borderBottomColor: '#d3d3d3'
+    },
+    pickerText: {
+      color: '#000000',
     },
     positionInput: {
         flexDirection: 'row',
@@ -85,7 +237,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     textInput: {
-        color: '#000000',
         flex: 4,
         borderBottomWidth: 1,
         borderBottomColor: '#d3d3d3'
@@ -108,17 +259,21 @@ const mapStateToProps = state => (
         name: state.ProfileReducer.name,
         email: state.ProfileReducer.email,
         minYear: state.ProfileReducer.minYear,
-        maxYear: state.ProfileReducer.maxYear
+        maxYear: state.ProfileReducer.maxYear,
+        phone: state.ProfileReducer.phone,
+        gender: state.ProfileReducer.gender
     }
 )
 
 export default connect(
-    mapStateToProps, 
-    { 
-        modificaName, 
-        modificaEmail, 
+    mapStateToProps,
+    {
+        modificaName,
+        modificaEmail,
         modificaMaxYear,
         modificaMinYear,
-        saveProfile 
-    } 
+        modificaGender,
+        modificaPhone,
+        saveProfile
+    }
 )(formProfile);

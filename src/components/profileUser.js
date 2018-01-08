@@ -6,7 +6,8 @@ import    InputConfig   from './general/inputConfig';
 import    TextConfig    from './general/textConfig';
 import    SliderConfig  from './general/sliderConfig';
 import    SideMenu      from 'react-native-side-menu';
-import ImagePicker from 'react-native-image-picker';
+import    ImagePicker   from 'react-native-image-picker';
+import    FormProfile   from './FormProfile';
 
 import FormProfile from './FormProfile';
 
@@ -95,9 +96,9 @@ export default class ProfileUser extends Component {
           </TouchableOpacity>
           <View>
             <View style={styles.positionPhoto}>
-            <Image borderRadius={65}
-              style={styles.imagePhoto}
-              source={this.state.avatarSource} />
+              <Image borderRadius={65}
+                style={styles.imagePhoto}
+                source={this.state.avatarSource} />
               <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
                 <Text style={styles.textImage}> Alterar Foto do perfil </Text>
               </TouchableOpacity>

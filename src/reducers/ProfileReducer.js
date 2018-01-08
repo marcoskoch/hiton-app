@@ -2,7 +2,10 @@ const INITIAL_STATE = {
     name: '',
     email: '',
     minYear: '',
-    maxYear: ''
+    maxYear: '',
+    gender: '',
+    photo: '',
+    phone: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,6 +20,15 @@ export default (state = INITIAL_STATE, action) => {
     }
     if(action.type == 'modifica_maxyear') {
         return { ...state, maxYear: action.payload }
+    }
+    if(action.type == 'modifica_gender') {
+        return { ...state, gender: action.payload }
+    }
+    if(action.type == 'modifica_photo') {
+        return { ...state, photo: action.payload }
+    }
+    if(action.type == 'modifica_phone') {
+        return { ...state, phone: action.payload }
     }
     return state;
 }

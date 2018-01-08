@@ -7,40 +7,53 @@ const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 export default class Menu extends Component {
-
-  logOut = (navigate) => {
-    LoginManager.logOut();
-    navigate('Login');
-  };  
-
-render() {
-  const { navigate } = this.props.navigation;
-  return (
-    <View style={styles.backgroundLogin}>
-      <View style={styles.colorNavigation}>
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      profile_gender: this.props.gender,
+      profile_minyear: this.props.minyear,
+      profile_maxyear: this.props.maxyear,
+    }
+  }
+  componentDidMount() {
+    AsyncStorage.getItem("profile_gender").then((value) => {
+        this.setState({"profile_gender": value});
+    }).done();
+    AsyncStorage.getItem("profile_minyear").then((value) => {
+        this.setState({"profile_minyear": value});
+    }).done();
+    AsyncStorage.getItem("profile_maxyear").then((value) => {
+        this.setState({"profile_maxyear": value});
+    }).done();
+  }
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.backgroundLogin}>
+        <View style={styles.colorNavigation}>
+        </View>
+        <View style={styles.positionTextCenter}>
+          <Text style={styles.textPerfil}>Meu Perfil</Text>
+        </View>
+        <View style={styles.positionPhoto}>
+          <ImageProfile image='../../assets/images/user_photo.jpg'/>
+        </View>
+        <View style={styles.positionTextStart}>
+          <Text style={styles.textTitle}>Idade</Text>
+          <Text style={styles.textSubTitle}>Entre {this.state.profile_minyear} e {this.state.profile_maxyear} Anos</Text>
+          <Text style={styles.textTitle}>Gênero</Text>
+          <Text style={styles.textSubTitle}>{this.state.profile_gender}</Text>
+        </View>
+        <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('ListUser')}>
+          <Text style={styles.textTitle}>Meus Hits</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('ProfileUser')}>
+          <Text style={styles.textTitle}>Configuração</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('Login')}>
+          <Text style={styles.textTitle}>Sair</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.positionTextCenter}>
-        <Text style={styles.textPerfil}>Meu Perfil</Text>
-      </View>
-      <View style={styles.positionPhoto}>
-        <ImageProfile image='../../assets/images/user_photo.jpg' />
-      </View>
-      <View style={styles.positionTextStart}>
-        <Text style={styles.textTitle}>Idade</Text>
-        <Text style={styles.textSubTitle}>Entre 18 e 25 Anos</Text>
-        <Text style={styles.textTitle}>Gênero</Text>
-        <Text style={styles.textSubTitle}>Feminino</Text>
-      </View>
-      <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('ListUser')}>
-        <Text style={styles.textTitle}>Meus Hits</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('ProfileUser')}>
-        <Text style={styles.textTitle}>Configuração</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.positionTextStart} onPress={() => this.logOut(navigate)}>
-        <Text style={styles.textTitle}>Sair</Text>
-      </TouchableOpacity>
-    </View>
   );
 }
 }
