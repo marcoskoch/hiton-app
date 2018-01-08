@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, AsyncStorage, Alert } from 'react-native';
-import    Topo      from './general/topo';
-import    Menu      from './general/menu';
-import    CardUser  from './general/cardUser';
-import    SideMenu  from 'react-native-side-menu';
+import { 
+  ScrollView, 
+  View, 
+  StyleSheet, 
+  Dimensions, 
+  TouchableOpacity, 
+  AsyncStorage, 
+  Alert,
+  NavigatorIOS, 
+  Text } from 'react-native';
+  import SideMenu from 'react-native-side-menu';
+  
+import Topo from './general/topo';
+import Menu from './general/menu';
+import CardUser from './general/cardUser';
+import QRCodeScanner from './qrcodeScanner';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -11,7 +22,7 @@ const primaryColor = '#2d7bdc';
 const getEvent = () => {
   try {
     const nameEvent = AsyncStorage.getItem('nameEvent').then(nameEvent);
-    if (nameEvent !== null){
+    if (nameEvent !== null) {
       return nameEvent.toString();
     }
   } catch (error) {
@@ -19,7 +30,7 @@ const getEvent = () => {
       'Ops',
       'Tente novamente mais tarde!',
       [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
       ],
       { cancelable: false }
     )
@@ -37,21 +48,21 @@ export default class QrCode extends Component {
     };
   }
 
-  componentDidMount() {
-      AsyncStorage.getItem("nameEvent").then((value) => {
-          this.setState({"nameEvent": value});
-      }).done();
-      AsyncStorage.getItem("idEvent").then((value) => {
-          this.setState({"idEvent": value});
-      }).done();
-  }
-  
-  getInitialState() {
-      return { };
-  }
-
   onSuccess(e) {
     Linking.openURL(e.data).catch(err => console.error('An error occured', err));
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem("nameEvent").then((value) => {
+      this.setState({ "nameEvent": value });
+    }).done();
+    AsyncStorage.getItem("idEvent").then((value) => {
+      this.setState({ "idEvent": value });
+    }).done();
+  }
+
+  getInitialState() {
+    return {};
   }
 
   toggle() {
@@ -65,7 +76,7 @@ export default class QrCode extends Component {
   }
 
   static navigationOptions = {
-    header:  null
+    header: null
   };
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
@@ -75,11 +86,12 @@ export default class QrCode extends Component {
         onChange={isOpen => this.updateMenuState(isOpen)}
         menu={menu}>
         <View style={styles.backgroundLogin}>
-        <TouchableOpacity onPress={this.toggle}>
-          <Topo title={this.state.nameEvent} showMenu={true}/>
-        </TouchableOpacity>
-        <View contentContainerStyle={styles.contentContainer}>
-        </View>
+          <TouchableOpacity onPress={this.toggle}>
+            <Topo numberOfLines={1} title={this.state.nameEvent} showMenu={true} />
+          </TouchableOpacity>
+          <View contentContainerStyle={styles.contentContainer}>
+            <QRCodeScanner />
+          </View>
         </View>
       </SideMenu>
     );
@@ -91,5 +103,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     flex: 1,
     flexDirection: 'column'
+  },
+  scanQRCode: {
+    marginTop: 50
   }
 });
