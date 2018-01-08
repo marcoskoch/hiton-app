@@ -9,16 +9,14 @@ class Login extends Component {
   static navigationOptions = {
     header: null
   };
-  componentWillMount() {
+  render() {
+    const { navigate } = this.props.navigation;
     AccessToken.getCurrentAccessToken().then(
       (data) => {
         console.log(data);
         if(data != null)
           navigate('Events');
       })
-  }
-  render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionLogo}>

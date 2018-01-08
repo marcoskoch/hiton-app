@@ -26,6 +26,10 @@ export default class Menu extends Component {
         this.setState({"profile_maxyear": value});
     }).done();
   }
+  logOut = (navigate) => {
+    LoginManager.logOut();
+    navigate('Login');
+  };
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -44,13 +48,13 @@ export default class Menu extends Component {
           <Text style={styles.textTitle}>Gênero</Text>
           <Text style={styles.textSubTitle}>{this.state.profile_gender}</Text>
         </View>
-        <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('ListUser')}>
-          <Text style={styles.textTitle}>Meus Hits</Text>
+        <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('Events')}>
+          <Text style={styles.textTitle}>Eventos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('ProfileUser')}>
           <Text style={styles.textTitle}>Configuração</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('Login')}>
+        <TouchableOpacity style={styles.positionTextStart} onPress={() => this.logOut(navigate)}>
           <Text style={styles.textTitle}>Sair</Text>
         </TouchableOpacity>
       </View>
