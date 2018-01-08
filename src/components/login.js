@@ -13,7 +13,7 @@ class Login extends Component {
     const { navigate } = this.props.navigation;
     AccessToken.getCurrentAccessToken().then(
       (data) => {
-        console.log(data);
+        AsyncStorage.setItem('facebookToken', data.accessToken);
         if(data != null)
           navigate('Events');
       })
@@ -36,6 +36,7 @@ class Login extends Component {
                   console.log(arguments);
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
+                      AsyncStorage.setItem('facebookToken', data.accessToken);
                       //post pra pegar o token da aplicacaos
                       //post salvar usuario
                       navigate('Events');

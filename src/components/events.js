@@ -50,7 +50,7 @@ class Events extends Component {
       isOpen: false,
       visibleLoading: true,
       listaItens: [],
-      facebookToken: 'EAAcGJNjINQkBAIzTD6rhDEEvjnskFHNWOY83Qj7ns1T2ZAskkKCZAfg6TsreqF64RhqSgUwlabhdZAJw3CZARbNPppfDR5KumKkxz7FOxtlcGIEYixUiWgcOq67ILVtL3eqZBAX69ZAFj1rRWZC0ZCDnLmSXZAnVlBqAZAIZBoC92eZCIQZAZCUaiNWDXgUwJxRUENb0YMMdk340iTqI0bZAtqMY8QyIm2ZCwty0L93wTl5TR9btPwZDZD',
+      facebookToken: '',
       baseURL: 'https://graph.facebook.com/v2.11/tr3snh/events?access_token='
     };
   }
@@ -69,20 +69,20 @@ class Events extends Component {
   };
 
   componentWillMount() {
-    AccessToken.getCurrentAccessToken().then(
-      (data) => {
-        this.state.facebookToken = data.AccessToken;
-    })
-    axios.get(this.state.baseURL+this.state.facebookToken)
-			.then(response => {
-        this.setState({ listaItens: response.data.data });
-        this.setState({ visibleLoading: false });
-      })
-			.catch(() => { console.log('Erro ao recuperar os dados'); });
+    AsyncStorage.getItem("facebookToken").then((value) => {
+        this.setState({"facebookToken": value});
+        axios.get(this.state.baseURL+this.state.facebookToken)
+    			.then(response => {
+            this.setState({ listaItens: response.data.data });
+            this.setState({ visibleLoading: false });
+          })
+    			.catch(() => { console.log('Erro ao recuperar os dados'); });
+    }).done();
+
   }
 
   getImageEventFacebook(idEvent){
-    axios.get('https://graph.facebook.com/v2.11/'+idEvent+'/picture?type=large&access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD')
+    axios.get('https://graph.facebook.com/v2.11/'+idEvent+'/picture?type=large&access_token=' + this.state.facebookToken.toString())
 			.then(response => {
         return response.config.url;
       })

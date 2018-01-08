@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Button, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Button, Image, Dimensions, AsyncStorage } from 'react-native';
 import { MaskService } from 'react-native-masked-text';
 import Moment from 'moment';
 const win = Dimensions.get('window');
@@ -13,7 +13,8 @@ class CardEvent extends Component {
       date: Moment(props.item.start_time).format('DD/MM'),
       city: this.returnNameCity(props.item.place),
       name: props.item.name,
-      place: this.returnPlaceEvent(props.item.place.name)
+      place: this.returnPlaceEvent(props.item.place.name),
+      photo: ''
     };
 
   };
@@ -34,6 +35,14 @@ class CardEvent extends Component {
     return 'Desconhecido';
   }
 
+  componentWillMount() {
+    AsyncStorage.getItem("facebookToken").then((value) => {
+        this.setState({"facebookToken": value});
+        this.setState({"photo": 'https://graph.facebook.com/v2.11/'+this.props.item.id+'/picture?type=large&access_token=' + value});
+    }).done();
+
+  }
+
   render() {
     const item = this.props.item;
     return (
@@ -41,7 +50,7 @@ class CardEvent extends Component {
         <View style={styles.cardImage}>
           <Image
             style={styles.imageEvent}
-            source={{ uri: 'https://graph.facebook.com/v2.11/'+item.id+'/picture?type=large&access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD' }}
+            source={{ uri: this.state.photo }}
           />
         </View>
         <View style={styles.viewText}>
