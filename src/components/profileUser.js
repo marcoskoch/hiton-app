@@ -7,9 +7,8 @@ import    TextConfig    from './general/textConfig';
 import    SliderConfig  from './general/sliderConfig';
 import    SideMenu      from 'react-native-side-menu';
 import    ImagePicker   from 'react-native-image-picker';
-import    FormProfile   from './FormProfile';
 
-import FormProfile from './FormProfile';
+import    FormProfile   from './FormProfile';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
