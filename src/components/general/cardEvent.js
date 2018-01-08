@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, Button, Image, Dimensions } from 'react-native';
+import { MaskService } from 'react-native-masked-text';
+import Moment from 'moment';
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
 
 class CardEvent extends Component {
   constructor(props) {
     super(props);
+    console.log(props.item.start_time);
+    this.state = {
+      date: MaskService.toMask('datetime', props.item.start_time, {
+        format: 'DD/MM',
+      }),
+    };
   };
 
   render() {
@@ -19,7 +27,7 @@ class CardEvent extends Component {
           />
         </View>
         <View style={styles.viewText}>
-          {/* <Text style={styles.dateTitle}>{item.start_time}</Text> */}
+          <Text style={styles.dateTitle}>{this.state.date}</Text>
           <View>
             <Text numberOfLines={1} style={styles.nameTitle}>{item.name}</Text>
             <Text style={styles.localTitle}>{item.place.name} - Novo Hamburgo</Text>

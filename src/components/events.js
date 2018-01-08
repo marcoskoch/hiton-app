@@ -23,13 +23,6 @@ const win = Dimensions.get('window');
 const primaryColor = '#FFFFFF';
 const facebookToken = '';
 
-AccessToken.getCurrentAccessToken().then(
-  (data) => {
-    facebookToken = data.AccessToken;
-  })
-
-baseURL = 'https://graph.facebook.com/v2.11/tr3snh/events?access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD';
-
 const saveEvent = (navigate ,itemId, itemName) => {
   try {
     AsyncStorage.setItem('idEvent', itemId.toString());
@@ -56,7 +49,9 @@ class Events extends Component {
     this.state = {
       isOpen: false,
       visibleLoading: true,
-      listaItens: []
+      listaItens: [],
+      facebookToken: 'EAAcGJNjINQkBAIzTD6rhDEEvjnskFHNWOY83Qj7ns1T2ZAskkKCZAfg6TsreqF64RhqSgUwlabhdZAJw3CZARbNPppfDR5KumKkxz7FOxtlcGIEYixUiWgcOq67ILVtL3eqZBAX69ZAFj1rRWZC0ZCDnLmSXZAnVlBqAZAIZBoC92eZCIQZAZCUaiNWDXgUwJxRUENb0YMMdk340iTqI0bZAtqMY8QyIm2ZCwty0L93wTl5TR9btPwZDZD',
+      baseURL: 'https://graph.facebook.com/v2.11/tr3snh/events?access_token='
     };
   }
 
@@ -74,8 +69,11 @@ class Events extends Component {
   };
 
   componentWillMount() {
-
-    axios.get(baseURL)
+    AccessToken.getCurrentAccessToken().then(
+      (data) => {
+        this.state.facebookToken = data.AccessToken;
+    })
+    axios.get(this.state.baseURL+this.state.facebookToken)
 			.then(response => {
         this.setState({ listaItens: response.data.data });
         this.setState({ visibleLoading: false });
@@ -85,7 +83,7 @@ class Events extends Component {
 
   getImageEventFacebook(idEvent){
     axios.get('https://graph.facebook.com/v2.11/'+idEvent+'/picture?type=large&access_token=EAACEdEose0cBAMSYBNvRxBtqJmtzt6ZCDr3XxH28QsBTS5lz1zCDZCc3lGtnUCP3vLkS5gecF55UIrEV14UmrDCxHdDCJA7ccKvazEXDszsQSUFI3MEkSF7mryopayBXPTVMoYk4hFEnb1BAyaGShAJchZBFnEiu91ZAZAYDyze9qpY13ZBmWOsZCZAZBmaOf974ZD')
-			.then(response => { 
+			.then(response => {
         return response.config.url;
       })
 			.catch(() => { console.log('Erro ao recuperar os dados'); });
