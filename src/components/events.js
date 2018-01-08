@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { 
-  ScrollView, 
-  TouchableOpacity, 
-  View, 
-  StyleSheet, 
-  Dimensions, 
+import {
+  ScrollView,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Dimensions,
   AsyncStorage } from 'react-native';
-import { 
-  AccessToken, 
-  GraphRequest, 
+import {
+  AccessToken,
+  GraphRequest,
   GraphRequestManager } from 'react-native-fbsdk';
 import axios from 'axios';
+import Spinner from 'react-native-loading-spinner-overlay';
+
 
 import  Topo      from './general/topo';
 import  CardEvent from './general/cardEvent';
@@ -53,6 +55,7 @@ class Events extends Component {
 
     this.state = {
       isOpen: false,
+      visibleLoading: true,
       listaItens: []
     };
   }
@@ -73,8 +76,9 @@ class Events extends Component {
   componentWillMount() {
 
     axios.get(baseURL)
-			.then(response => { 
+			.then(response => {
         this.setState({ listaItens: response.data.data });
+        this.setState({ visibleLoading: false });
       })
 			.catch(() => { console.log('Erro ao recuperar os dados'); });
   }
@@ -90,7 +94,7 @@ class Events extends Component {
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
     const { navigate } = this.props.navigation;
-    
+
     return (
       <SideMenu
         isOpen={this.state.isOpen}
@@ -102,6 +106,9 @@ class Events extends Component {
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View>
+            <View style={{ flex: 1 }}>
+              <Spinner visible={this.state.visibleLoading} textContent={"Carregando..."} color='#2d7bdc' textStyle={{color: '#2d7bdc'}} />
+            </View>
             {this.state.listaItens.map(item => (
               <TouchableOpacity key  = {item.id} style={styles.positionText} onPress={() => saveEvent(navigate ,item.id, item.name)} >
                 <CardEvent

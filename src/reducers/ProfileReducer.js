@@ -1,8 +1,8 @@
 const INITIAL_STATE = {
     name: '',
     email: '',
-    minYear: '',
-    maxYear: '',
+    minYear: '18',
+    maxYear: '30',
     gender: '',
     photo: '',
     phone: ''
