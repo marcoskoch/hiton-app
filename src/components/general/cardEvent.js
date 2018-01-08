@@ -8,13 +8,31 @@ const primaryColor = '#2d7bdc';
 class CardEvent extends Component {
   constructor(props) {
     super(props);
-    console.log(props.item.start_time);
+    Moment.locale('en');
     this.state = {
-      date: MaskService.toMask('datetime', props.item.start_time, {
-        format: 'DD/MM',
-      }),
+      date: Moment(props.item.start_time).format('DD/MM'),
+      city: this.returnNameCity(props.item.place),
+      name: props.item.name,
+      place: this.returnPlaceEvent(props.item.place.name)
     };
+
   };
+
+  returnPlaceEvent(item) {
+    if (item.length > 19) {
+        return item.substr(0, 15) + ' ...';
+    }
+    return item;
+  }
+
+  returnNameCity(item) {
+    if (item.location != null) {
+      if (item.location.city != null) {
+        return item.location.city;
+      }
+    }
+    return 'Desconhecido';
+  }
 
   render() {
     const item = this.props.item;
@@ -29,8 +47,8 @@ class CardEvent extends Component {
         <View style={styles.viewText}>
           <Text style={styles.dateTitle}>{this.state.date}</Text>
           <View>
-            <Text numberOfLines={1} style={styles.nameTitle}>{item.name}</Text>
-            <Text style={styles.localTitle}>{item.place.name} - Novo Hamburgo</Text>
+            <Text numberOfLines={1} style={styles.nameTitle}>{this.state.name}</Text>
+            <Text style={styles.localTitle}>{this.state.place} - {this.state.city}</Text>
           </View>
         </View>
       </View>
@@ -74,6 +92,7 @@ const styles = StyleSheet.create({
   },
   nameTitle: {
     fontSize: 20,
+    width: 230,
     color: primaryColor
   },
   localTitle: {
