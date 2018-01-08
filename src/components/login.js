@@ -9,42 +9,46 @@ class Login extends Component {
   static navigationOptions = {
     header: null
   };
-
-  render() {
-    const { navigate } = this.props.navigation;
+  componentWillMount() {
     AccessToken.getCurrentAccessToken().then(
       (data) => {
+        console.log(data);
         if(data != null)
           navigate('Events');
       })
+  }
+  render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionLogo}>
           <Image style={styles.imageLogo}
             source={require('../assets/images/HIT-On.png')} />
         </View>
-
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Login failed with error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Login was cancelled");
-              } else {
-                console.log(arguments);
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data);
-                    //post pra pegar o token da aplicacaos
-                    //post salvar usuario
-                    navigate('Events');
-                  })
+        <View style={styles.positionText}>
+          <LoginButton
+            publishPermissions={["publish_actions"]}
+            onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  alert("Login failed with error: " + result.error);
+                } else if (result.isCancelled) {
+                  alert("Login was cancelled");
+                } else {
+                  console.log(arguments);
+                  AccessToken.getCurrentAccessToken().then(
+                    (data) => {
+                      console.log(data);
+                      //post pra pegar o token da aplicacaos
+                      //post salvar usuario
+                      navigate('Events');
+                    })
+                }
               }
             }
-          }
-          onLogoutFinished={() => alert("User logged out")} />
+            onLogoutFinished={() => alert("User logged out")} />
+        </View>
+
       </View>
     );
   }
@@ -64,31 +68,10 @@ const styles = StyleSheet.create({
   },
   positionText: {
     alignItems: 'center',
-    marginTop: 15
+    marginTop: 35
   },
   imageLogo: {
     width: win.width / 2.5,
     height: win.width / 2.5
-  },
-  textEntrar: {
-    fontSize: 30,
-    color: '#FFF',
-    justifyContent: 'center',
-    alignItems: 'center'
-    // fontFamily: 'segoeuil'
-  },
-  positionInput: {
-    marginTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  input: {
-    marginTop: 15,
-    width: 180,
-    height: 40,
-    color: '#333333',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 3,
-    paddingLeft: 10
   }
 });
