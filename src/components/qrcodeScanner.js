@@ -46,7 +46,8 @@ export default class QRCodeScanner extends Component {
     super(props);
     this.state = {
       scanning: false,
-      fadeInOpacity: new Animated.Value(0)
+      fadeInOpacity: new Animated.Value(0),
+      idEvent: ''
     }
 
     this._handleBarCodeRead = this._handleBarCodeRead.bind(this);
@@ -65,6 +66,9 @@ export default class QRCodeScanner extends Component {
         )
       ]).start();
     }
+    AsyncStorage.getItem("idEvent").then((value) => {
+      this.setState({ "idEvent": value });
+    }).done();
   }
 
   _setScanning(value) {
@@ -76,7 +80,10 @@ export default class QRCodeScanner extends Component {
       Vibration.vibrate();
       this._setScanning(true);
       this.props.onRead(e)
-      alert(e.data);
+      if (e.data == this.state.idEvent) {
+        const { navigate } = this.props.navigation;
+        navigate('ListUser');
+      }
       if (this.props.reactivate) {
         setTimeout(() => (this._setScanning(false)), this.props.reactivateTimeout);
       }

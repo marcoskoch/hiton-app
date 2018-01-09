@@ -26,7 +26,7 @@ const facebookToken = '';
 const saveEvent = (navigate ,itemId, itemName) => {
   try {
     AsyncStorage.setItem('idEvent', itemId.toString());
-    AsyncStorage.setItem('nameEvent', itemName.toString());
+    AsyncStorage.setItem('nameEvent', itemName.toString().substr(0, 25));
     navigate('QrCode');
   } catch (error) {
     Alert.alert(

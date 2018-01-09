@@ -44,7 +44,8 @@ export default class QrCode extends Component {
     this.state = {
       isOpen: false,
       nameEvent: '',
-      idEvent: ''
+      idEvent: '',
+      showMenu: false
     };
   }
 
@@ -58,9 +59,14 @@ export default class QrCode extends Component {
   }
 
   toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    if (this.state.showMenu) {
+      this.setState({
+        isOpen: !this.state.isOpen,
+      });
+    } else {
+      const { navigate } = this.props.navigation;
+      navigate('Events');
+    }
   }
 
   updateMenuState(isOpen) {
@@ -79,7 +85,7 @@ export default class QrCode extends Component {
         menu={menu}>
         <View style={styles.backgroundLogin}>
           <TouchableOpacity onPress={this.toggle}>
-            <Topo numberOfLines={1} title={this.state.nameEvent} showMenu={true} />
+            <Topo title={this.state.nameEvent} showMenu={this.state.showMenu} />
           </TouchableOpacity>
           <View contentContainerStyle={styles.contentContainer}>
             <QRCodeScanner />

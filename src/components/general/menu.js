@@ -48,7 +48,7 @@ export default class Menu extends Component {
           <Text style={styles.textTitle}>Gênero</Text>
           <Text style={styles.textSubTitle}>{this.state.profile_gender}</Text>
         </View>
-        <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('Events')}>
+        <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('ListUser')}>
           <Text style={styles.textTitle}>Eventos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('ProfileUser')}>

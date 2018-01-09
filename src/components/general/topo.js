@@ -20,13 +20,13 @@ class IconMenu extends Component {
     if (!this.props.showMenu) {
       return (
         <View style={styles.icon}>
-          <Icon name="menu" size={20} color="#FFF" />
+          <Icon name="arrow-left" size={18} color="#FFF" />
         </View>
       );
     } else {
       return (
         <View style={styles.icon}>
-          <Icon name="arrow-left" size={18} color="#FFF" />
+          <Icon name="menu" size={20} color="#FFF" />
         </View>
       );
     }
@@ -37,9 +37,9 @@ class Topo extends Component {
   render() {
     return (
       <View>
-        <NavigationBar style={{backgroundColor: '#2d7bdc'}}
+        <NavigationBar style={styles.menus}
           title={<Title title={this.props.title}/>}
-          leftButton={<IconMenu title={this.props.showMenu}/>}
+          leftButton={<IconMenu showMenu={this.props.showMenu}/>}
           tintColor={'#2d7bdc'}
         />
       </View>
@@ -50,12 +50,14 @@ class Topo extends Component {
 export default Topo;
 
 const styles = StyleSheet.create({
+  menus: {
+    backgroundColor: '#2d7bdc'
+  },
   txtTitulo: {
     fontSize: 25,
     color: '#FFF',
-    width: 300,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
     //fontFamily: 'segoeuil'
   },
   icon: {

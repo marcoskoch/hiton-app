@@ -86,14 +86,20 @@ export default class ListUser extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      showMenu: false
     };
   }
 
   toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    if (this.state.showMenu) {
+      this.setState({
+        isOpen: !this.state.isOpen,
+      });
+    } else {
+      const { navigate } = this.props.navigation;
+      navigate('Events');
+    }
   }
 
   updateMenuState(isOpen) {
@@ -111,7 +117,7 @@ export default class ListUser extends Component {
         menu={menu}>
         <View style={styles.backgroundLogin}>
         <TouchableOpacity onPress={this.toggle}>
-          <Topo title='Hit On' showMenu={true}/>
+          <Topo title='Hit On' showMenu={this.state.showMenu} />
         </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {listUser()}
