@@ -48,7 +48,6 @@ class Events extends Component {
     Moment.locale('en');
     var value = Moment().valueOf()
     sinceTime = value.toString().substr(0,10);
-    console.log(sinceTime);
     this.state = {
       isOpen: false,
       visibleLoading: true,

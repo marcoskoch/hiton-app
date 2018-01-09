@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { 
-  ScrollView, 
-  View, 
-  StyleSheet, 
-  Dimensions, 
-  TouchableOpacity, 
-  AsyncStorage, 
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  AsyncStorage,
   Alert,
-  NavigatorIOS, 
+  NavigatorIOS,
   Text } from 'react-native';
   import SideMenu from 'react-native-side-menu';
-  
+
 import Topo from './general/topo';
 import Menu from './general/menu';
 import CardUser from './general/cardUser';
@@ -48,10 +48,6 @@ export default class QrCode extends Component {
     };
   }
 
-  onSuccess(e) {
-    Linking.openURL(e.data).catch(err => console.error('An error occured', err));
-  }
-
   componentDidMount() {
     AsyncStorage.getItem("nameEvent").then((value) => {
       this.setState({ "nameEvent": value });
@@ -59,10 +55,6 @@ export default class QrCode extends Component {
     AsyncStorage.getItem("idEvent").then((value) => {
       this.setState({ "idEvent": value });
     }).done();
-  }
-
-  getInitialState() {
-    return {};
   }
 
   toggle() {

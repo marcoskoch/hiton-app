@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   txtTitulo: {
     fontSize: 25,
     color: '#FFF',
+    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     //fontFamily: 'segoeuil'
