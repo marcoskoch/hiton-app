@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, Text, Image } from 'react-native';
 import    Topo      from './general/topo';
 import    Menu      from './general/menu';
 import    CardUser  from './general/cardUser';
 import    SideMenu  from 'react-native-side-menu';
+import    Modal     from 'react-native-modal'
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -87,9 +88,13 @@ export default class ListUser extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      showMenu: false
+      showMenu: false,
+      isModalVisible: false,
+      itemSelected: []
     };
   }
+
+  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible })
 
   toggle() {
     if (this.state.showMenu) {
@@ -119,9 +124,32 @@ export default class ListUser extends Component {
         <TouchableOpacity onPress={this.toggle}>
           <Topo title='Hit On' showMenu={this.state.showMenu} />
         </TouchableOpacity>
+        <TouchableOpacity onPress={this._toggleModal}>
+         <Text>Show Modal</Text>
+       </TouchableOpacity>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {listUser()}
         </ScrollView>
+        <Modal isVisible={this.state.isModalVisible}>
+          <View style={styles.container}>
+            <Text style={styles.txtTitulo}>Deu Hit em Você!</Text>
+            <View style={styles.cardImage}>
+              <Image
+                style={styles.imageEvent}
+                source={{uri: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg'}}
+              />
+            </View>
+            <View style={styles.buttonBlue}>
+                <Text style={styles.txtSubTitle}>Salve o número, para marcarem um hit</Text>
+            </View>
+            <View style={styles.buttonBlue}>
+                <Text style={styles.txtSubTitle}>(51) 99986-9289</Text>
+            </View>
+            <TouchableOpacity onPress={this._toggleModal}>
+              <Text style={styles.txtReturn}>Voltar</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
         </View>
       </SideMenu>
     );
@@ -133,5 +161,53 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     flex: 1,
     flexDirection: 'column'
-  }
+  },
+
+  container: {
+    flex:1,
+    marginTop:50,
+    marginBottom: 50,
+    marginLeft:25,
+    marginRight:25,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  cardImage: {
+    alignItems: 'center',
+    height: win.width-60,
+    backgroundColor: '#000000'
+  },
+  imageEvent: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width:win.width-60,
+    height:win.width-60,
+    opacity: 0.9
+  },
+  buttonBlue: {
+    backgroundColor: primaryColor,
+    width: 300,
+    height: 40,
+    borderRadius:65,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  txtTitulo: {
+    fontSize: 25,
+    color: '#FFF',
+    marginBottom: 25,
+    //fontFamily: 'segoeuil'
+  },
+  txtSubTitle: {
+    fontSize: 15,
+    color: '#FFF'
+    //fontFamily: 'segoeuil'
+  },
+  txtReturn: {
+    fontSize: 15,
+    marginTop: 15,
+    color: '#FFF'
+    //fontFamily: 'segoeuil'
+  },
 });
