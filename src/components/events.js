@@ -41,11 +41,6 @@ const saveEvent = (navigate ,itemId, itemName) => {
 }
 
 
-
-
-
-
-
 class Events extends Component {
   constructor(props) {
     super(props);
@@ -56,13 +51,15 @@ class Events extends Component {
       visibleLoading: true,
       listaItens: [],
       facebookToken: '',
-      baseURL_1: 'https://graph.facebook.com/v2.11/tr3snh/events?since=1513777020&access_token=',
-      baseURL_2: 'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since=1513777020&access_token=',
-      baseURL_3: 'https://graph.facebook.com/v2.11/farmsbar/events?since=1513777020&access_token=',
-      baseURL_4: 'https://graph.facebook.com/v2.11/innloungebarnh/events?since=1513777020&access_token=',
-      baseURL_5: 'https://graph.facebook.com/v2.11/gruposambary/events?since=1513777020&access_token=',
-      baseURL_6: 'https://graph.facebook.com/v2.11/maoribeachclub/events?since=1513777020&access_token=',
-      baseURL_7: 'https://graph.facebook.com/v2.11/Provocateurpoa/events?since=1513777020&access_token='
+      baseURL: [
+        'https://graph.facebook.com/v2.11/tr3snh/events?since='+this.getDataAtual()+'&access_token=',
+        'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since='+this.getDataAtual()+'&access_token=',
+        'https://graph.facebook.com/v2.11/farmsbar/events?since='+this.getDataAtual()+'&access_token=',
+        'https://graph.facebook.com/v2.11/innloungebarnh/events?since='+this.getDataAtual()+'&access_token=',
+        'https://graph.facebook.com/v2.11/gruposambary/events?since='+this.getDataAtual()+'&access_token=',
+        'https://graph.facebook.com/v2.11/maoribeachclub/events?since='+this.getDataAtual()+'&access_token=',
+        'https://graph.facebook.com/v2.11/Provocateurpoa/events?since='+this.getDataAtual()+'&access_token='
+      ],
     };
   }
 
@@ -80,21 +77,23 @@ class Events extends Component {
   };
 
   componentWillMount() {
-    var listEvents = {};
     AsyncStorage.getItem("facebookToken").then((value) => {
+
         this.setState({"facebookToken": value});
-        axios.get(this.state.baseURL_1+this.state.facebookToken).then(response => {
-          this.setState({ listaItens: this.state.listaItens.push(response) });
-          axios.get(this.state.baseURL_6+this.state.facebookToken).then(response => {
-            this.setState({ listaItens: this.state.listaItens.push(response) });
-            this.setState({ visibleLoading: false });
-          }).catch(() => {
-            console.log('Erro ao recuperar os dados');
-          });
-        }).catch(() => {
-          console.log('Erro ao recuperar os dados');
+
+        this.state.baseURL.forEach((value) => {
+          axios.get(value+this.state.facebookToken).then(response => {
+
+            this.setState({ 
+              listaItens: [...this.state.listaItens, ...response.data.data]
+            });
+
+            console.log(this.state.listaItens);
+          }).catch(() => { console.log('Erro ao recuperar os eventos'); });
         });
+        this.setState({ visibleLoading: false });
     }).done();
+
   }
 
   getImageEventFacebook(idEvent){
@@ -102,7 +101,19 @@ class Events extends Component {
 			.then(response => {
         return response.config.url;
       })
-			.catch(() => { console.log('Erro ao recuperar os dados'); });
+			.catch(() => { console.log('Erro ao recuperar as fotos'); });
+  }
+
+  getDataAtual = () => {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   render() {
