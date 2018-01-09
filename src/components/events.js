@@ -81,32 +81,32 @@ class Events extends Component {
   };
 
   componentWillMount() {
+    var cont = 0;
     AsyncStorage.getItem("facebookToken").then((value) => {
-
         this.setState({"facebookToken": value});
-
-        this.state.baseURL.forEach((value) => {
+        this.state.baseURL.forEach((value, index, array) => {
           axios.get(value+this.state.facebookToken).then(response => {
-
             this.setState({
               listaItens: [...this.state.listaItens, ...response.data.data]
             });
-            console.log(this.state.listaItens);
-          }).catch(() => { console.log('Erro ao recuperar os eventos'); });
+            cont++;
+            if (cont === array.length){
+              var list = this.state.listaItens.sort(function compare(a, b) {
+                var dateA = new Date(a.start_time);
+                var dateB = new Date(b.start_time);
+                return dateA - dateB;
+              });
+              this.setState({ listaItens: list });
+              this.setState({ visibleLoading: false });
+            }
+          }).catch(() => {
+            cont++;
+            console.log('Erro ao recuperar os eventos');
+          });
         });
-
-        var list = this.state.listaItens.sort(function compare(a, b) {
-          var dateA = new Date(a.start_time);
-          var dateB = new Date(b.start_time);
-          return dateA - dateB;
-        });
-        this.setState({ listaItens: list });
-        this.setState({ visibleLoading: false });
     }).done();
 
   }
-
-
 
   getImageEventFacebook(idEvent){
     axios.get('https://graph.facebook.com/v2.11/'+idEvent+'/picture?type=large&access_token=' + this.state.facebookToken.toString())
