@@ -12,7 +12,7 @@ import {
   GraphRequestManager } from 'react-native-fbsdk';
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import Moment from 'moment';
 
 import  Topo      from './general/topo';
 import  CardEvent from './general/cardEvent';
@@ -45,14 +45,25 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-
+    Moment.locale('en');
+    var value = Moment().valueOf()
+    sinceTime = value.toString().substr(0,10);
     this.state = {
       isOpen: false,
       visibleLoading: true,
       listaItens: [],
       facebookToken: '',
-      baseURL: 'https://graph.facebook.com/v2.11/tr3snh/events?access_token='
+      baseURL: [
+        'https://graph.facebook.com/v2.11/tr3snh/events?since='+sinceTime+'&access_token=',
+        'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since='+sinceTime+'&access_token=',
+        'https://graph.facebook.com/v2.11/farmsbar/events?since='+sinceTime+'&access_token=',
+        'https://graph.facebook.com/v2.11/innloungebarnh/events?since='+sinceTime+'&access_token=',
+        'https://graph.facebook.com/v2.11/gruposambary/events?since='+sinceTime+'&access_token=',
+        'https://graph.facebook.com/v2.11/maoribeachclub/events?since='+sinceTime+'&access_token=',
+        'https://graph.facebook.com/v2.11/300cosmodiningroom/events?since='+sinceTime+'&access_token='
+      ],
     };
+
   }
 
   toggle() {
@@ -69,14 +80,29 @@ class Events extends Component {
   };
 
   componentWillMount() {
+    var cont = 0;
     AsyncStorage.getItem("facebookToken").then((value) => {
         this.setState({"facebookToken": value});
-        axios.get(this.state.baseURL+this.state.facebookToken)
-    			.then(response => {
-            this.setState({ listaItens: response.data.data });
-            this.setState({ visibleLoading: false });
-          })
-    			.catch(() => { console.log('Erro ao recuperar os dados'); });
+        this.state.baseURL.forEach((value, index, array) => {
+          axios.get(value+this.state.facebookToken).then(response => {
+            this.setState({
+              listaItens: [...this.state.listaItens, ...response.data.data]
+            });
+            cont++;
+            if (cont === array.length){
+              var list = this.state.listaItens.sort(function compare(a, b) {
+                var dateA = new Date(a.start_time);
+                var dateB = new Date(b.start_time);
+                return dateA - dateB;
+              });
+              this.setState({ listaItens: list });
+              this.setState({ visibleLoading: false });
+            }
+          }).catch(() => {
+            cont++;
+            console.log('Erro ao recuperar os eventos');
+          });
+        });
     }).done();
 
   }
@@ -86,7 +112,7 @@ class Events extends Component {
 			.then(response => {
         return response.config.url;
       })
-			.catch(() => { console.log('Erro ao recuperar os dados'); });
+			.catch(() => { console.log('Erro ao recuperar as fotos'); });
   }
 
   render() {

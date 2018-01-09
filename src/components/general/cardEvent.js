@@ -9,13 +9,16 @@ class CardEvent extends Component {
   constructor(props) {
     super(props);
     Moment.locale('en');
-    this.state = {
-      date: Moment(props.item.start_time).format('DD/MM'),
-      city: this.returnNameCity(props.item.place),
-      name: props.item.name,
-      place: this.returnPlaceEvent(props.item.place.name),
-      photo: ''
-    };
+    if (props.item != null) {
+      this.state = {
+        date: Moment(props.item.start_time).format('DD/MM'),
+        city: this.returnNameCity(props.item.place),
+        name: props.item.name,
+        place: this.returnPlaceEvent(props.item.place.name),
+        photo: ''
+      };
+    }
+
 
   };
 
@@ -27,9 +30,11 @@ class CardEvent extends Component {
   }
 
   returnNameCity(item) {
-    if (item.location != null) {
-      if (item.location.city != null) {
-        return item.location.city;
+    if (item != null) {
+      if (item.location != null) {
+        if (item.location.city != null) {
+          return item.location.city;
+        }
       }
     }
     return 'Desconhecido';

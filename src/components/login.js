@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   positionLogo: {
-    marginTop: 50,
+    marginTop: 150,
     alignItems: 'center'
   },
   positionText: {
