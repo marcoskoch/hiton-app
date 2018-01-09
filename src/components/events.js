@@ -12,7 +12,7 @@ import {
   GraphRequestManager } from 'react-native-fbsdk';
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import Moment from 'moment';
 
 import  Topo      from './general/topo';
 import  CardEvent from './general/cardEvent';
@@ -50,20 +50,22 @@ class Events extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-
+    Moment.locale('en');
+    var value = Moment().valueOf()
+    sinceTime = value.toString().substr(0,10);
+    console.log(sinceTime);
     this.state = {
       isOpen: false,
       visibleLoading: true,
       listaItens: [],
       facebookToken: '',
-      baseURL_1: 'https://graph.facebook.com/v2.11/tr3snh/events?since=1513777020&access_token=',
-      baseURL_2: 'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since=1513777020&access_token=',
-      baseURL_3: 'https://graph.facebook.com/v2.11/farmsbar/events?since=1513777020&access_token=',
-      baseURL_4: 'https://graph.facebook.com/v2.11/innloungebarnh/events?since=1513777020&access_token=',
-      baseURL_5: 'https://graph.facebook.com/v2.11/gruposambary/events?since=1513777020&access_token=',
-      baseURL_6: 'https://graph.facebook.com/v2.11/maoribeachclub/events?since=1513777020&access_token=',
-      baseURL_7: 'https://graph.facebook.com/v2.11/Provocateurpoa/events?since=1513777020&access_token='
+      baseURL_1: 'https://graph.facebook.com/v2.11/tr3snh/events?since=' + sinceTime + '&access_token=',
+      baseURL_2: 'https://graph.facebook.com/v2.11/innloungebarnh/events?since=' + sinceTime + '&access_token=',
+      baseURL_3: 'https://graph.facebook.com/v2.11/farmsbarnh/events?since=' + sinceTime + '&access_token=',
+      baseURL_4: 'https://graph.facebook.com/v2.11/maoribeachclub/events?since=' + sinceTime + '&access_token=',
+      baseURL_5: 'https://graph.facebook.com/v2.11/300cosmodiningroom/events?since=' + sinceTime + '&access_token=',
     };
+
   }
 
   toggle() {
@@ -80,14 +82,41 @@ class Events extends Component {
   };
 
   componentWillMount() {
-    var listEvents = {};
+    facebookToken = '';
+    list = [];
     AsyncStorage.getItem("facebookToken").then((value) => {
+        facebookToken = value;
         this.setState({"facebookToken": value});
-        axios.get(this.state.baseURL_1+this.state.facebookToken).then(response => {
-          this.setState({ listaItens: this.state.listaItens.push(response) });
-          axios.get(this.state.baseURL_6+this.state.facebookToken).then(response => {
-            this.setState({ listaItens: this.state.listaItens.push(response) });
-            this.setState({ visibleLoading: false });
+        axios.get(this.state.baseURL_1+facebookToken).then(response => {
+          list = list.concat(response.data.data)
+          this.setState({ "listaItens": list });
+          axios.get(this.state.baseURL_2+facebookToken).then(response => {
+            list = list.concat(response.data.data)
+            this.setState({ "listaItens": list });
+            axios.get(this.state.baseURL_3+facebookToken).then(response => {
+              list = list.concat(response.data.data)
+              this.setState({ "listaItens": list });
+              axios.get(this.state.baseURL_4+facebookToken).then(response => {
+                list = list.concat(response.data.data)
+                this.setState({ "listaItens": list });
+                axios.get(this.state.baseURL_5+facebookToken).then(response => {
+                  list = list.concat(response.data.data)
+                  list.sort(function compare(a, b) {
+                    var dateA = new Date(a.start_time);
+                    var dateB = new Date(b.start_time);
+                    return dateA - dateB;
+                  });
+                  this.setState({ "listaItens": list });
+                  this.setState({ "visibleLoading": false });
+                }).catch(() => {
+                  console.log('Erro ao recuperar os dados');
+                });
+              }).catch(() => {
+                console.log('Erro ao recuperar os dados');
+              });
+            }).catch(() => {
+              console.log('Erro ao recuperar os dados');
+            });
           }).catch(() => {
             console.log('Erro ao recuperar os dados');
           });
@@ -96,6 +125,8 @@ class Events extends Component {
         });
     }).done();
   }
+
+
 
   getImageEventFacebook(idEvent){
     axios.get('https://graph.facebook.com/v2.11/'+idEvent+'/picture?type=large&access_token=' + this.state.facebookToken.toString())
