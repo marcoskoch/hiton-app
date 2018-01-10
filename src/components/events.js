@@ -56,7 +56,6 @@ class Events extends Component {
       baseURL: [
         'https://graph.facebook.com/v2.11/tr3snh/events?since='+sinceTime+'&access_token=',
         'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since='+sinceTime+'&access_token=',
-        'https://graph.facebook.com/v2.11/farmsbar/events?since='+sinceTime+'&access_token=',
         'https://graph.facebook.com/v2.11/innloungebarnh/events?since='+sinceTime+'&access_token=',
         'https://graph.facebook.com/v2.11/gruposambary/events?since='+sinceTime+'&access_token=',
         'https://graph.facebook.com/v2.11/maoribeachclub/events?since='+sinceTime+'&access_token=',
@@ -95,6 +94,7 @@ class Events extends Component {
                 var dateB = new Date(b.start_time);
                 return dateA - dateB;
               });
+              console.log(list);
               this.setState({ listaItens: list });
               this.setState({ visibleLoading: false });
             }

@@ -15,6 +15,7 @@ class Login extends Component {
       (data) => {
         AsyncStorage.setItem('facebookToken', data.accessToken);
         if(data != null)
+          console.log(data);
           navigate('Events');
       })
     return (
@@ -25,7 +26,7 @@ class Login extends Component {
         </View>
         <View style={styles.positionText}>
           <LoginButton
-            publishPermissions={["publish_actions"]}
+            publishPermissions={["email, user_birthday"]}
             onLoginFinished={
               (error, result) => {
                 if (error) {
