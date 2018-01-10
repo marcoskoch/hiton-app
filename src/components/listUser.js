@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, Text, Image } from 'react-native';
-import    Topo      from './general/topo';
-import    Menu      from './general/menu';
-import    CardUser  from './general/cardUser';
-import    SideMenu  from 'react-native-side-menu';
-import    Modal     from 'react-native-modal'
+import Topo from './general/topo';
+import Menu from './general/menu';
+import CardUser from './general/cardUser';
+import SideMenu from 'react-native-side-menu';
+import Modal from 'react-native-modal'
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -19,9 +19,9 @@ const listUserMock = [
     youChouse: false,
     viewable: false,
     photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg'}
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
     ]
   },
   {
@@ -33,9 +33,9 @@ const listUserMock = [
     youChouse: false,
     viewable: false,
     photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg'}
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
     ]
   },
   {
@@ -47,9 +47,9 @@ const listUserMock = [
     youChouse: true,
     viewable: true,
     photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg'}
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
     ]
   },
   {
@@ -61,31 +61,18 @@ const listUserMock = [
     youChouse: true,
     viewable: true,
     photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg'},
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg'}
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
+      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
     ]
   }
 ];
-
-const listUser = () => {
-  return (
-    <View>
-      {listUserMock.map(item => (
-        <CardUser
-        key  = {item.id}
-        item = {item}
-        />
-      ))}
-    </View>
-  );
-}
-
 
 export default class ListUser extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
+    this.checkHit = this.checkHit.bind(this);
     this.state = {
       isOpen: false,
       showMenu: false,
@@ -111,8 +98,19 @@ export default class ListUser extends Component {
     this.setState({ isOpen });
   }
   static navigationOptions = {
-    header:  null
+    header: null
   };
+
+  checkHit() {
+    // realizar um get com o id da pessoa curtida
+    let isReciprocal = random_boolean = Math.random() >= 0.5;
+    if (isReciprocal) {
+      this.setState({ isModalVisible: !this.state.isModalVisible })
+    }
+
+  }
+
+
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
     return (
@@ -121,35 +119,45 @@ export default class ListUser extends Component {
         onChange={isOpen => this.updateMenuState(isOpen)}
         menu={menu}>
         <View style={styles.backgroundLogin}>
-        <TouchableOpacity onPress={this.toggle}>
-          <Topo title='Hit On' showMenu={this.state.showMenu} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this._toggleModal}>
+          <TouchableOpacity onPress={this.toggle}>
+            <Topo title='Hit On' showMenu={this.state.showMenu} />
+          </TouchableOpacity>
+          {/*  <TouchableOpacity onPress={this._toggleModal}>
          <Text>Show Modal</Text>
-       </TouchableOpacity>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-          {listUser()}
-        </ScrollView>
-        <Modal isVisible={this.state.isModalVisible}>
-          <View style={styles.container}>
-            <Text style={styles.txtTitulo}>Deu Hit em Você!</Text>
-            <View style={styles.cardImage}>
-              <Image
-                style={styles.imageEvent}
-                source={{uri: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg'}}
-              />
+       </TouchableOpacity> */}
+          <ScrollView contentContainerStyle={styles.contentContainer}>
+            <View>
+              {listUserMock.map(item => (
+                <CardUser
+                  key={item.id}
+                  item={item}
+                  checkHit={this.checkHit}
+                />
+              ))}
             </View>
-            <View style={styles.buttonBlue}>
+          </ScrollView>
+
+          <Modal isVisible={this.state.isModalVisible}>
+            <View style={styles.container}>
+              <Text style={styles.txtTitulo}>Deu Hit em Você!</Text>
+              <View style={styles.cardImage}>
+                <Image
+                  style={styles.imageEvent}
+                  source={{ uri: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' }}
+                />
+              </View>
+              <View style={styles.buttonBlue}>
                 <Text style={styles.txtSubTitle}>Salve o número, para marcarem um hit</Text>
-            </View>
-            <View style={styles.buttonBlue}>
+              </View>
+              <View style={styles.buttonBlue}>
                 <Text style={styles.txtSubTitle}>(51) 99986-9289</Text>
+              </View>
+              <TouchableOpacity onPress={this._toggleModal}>
+                <Text style={styles.txtReturn}>Voltar</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={this._toggleModal}>
-              <Text style={styles.txtReturn}>Voltar</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+          </Modal>
+
         </View>
       </SideMenu>
     );
@@ -164,31 +172,31 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    flex:1,
-    marginTop:50,
+    flex: 1,
+    marginTop: 50,
     marginBottom: 50,
-    marginLeft:25,
-    marginRight:25,
+    marginLeft: 25,
+    marginRight: 25,
     justifyContent: 'center',
     alignItems: 'center'
   },
   cardImage: {
     alignItems: 'center',
-    height: win.width-60,
+    height: win.width - 60,
     backgroundColor: '#000000'
   },
   imageEvent: {
     flex: 1,
     alignSelf: 'stretch',
-    width:win.width-60,
-    height:win.width-60,
+    width: win.width - 60,
+    height: win.width - 60,
     opacity: 0.9
   },
   buttonBlue: {
     backgroundColor: primaryColor,
     width: 300,
     height: 40,
-    borderRadius:65,
+    borderRadius: 65,
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center'
