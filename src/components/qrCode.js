@@ -88,7 +88,7 @@ export default class QrCode extends Component {
             <Topo title={this.state.nameEvent} showMenu={this.state.showMenu} />
           </TouchableOpacity>
           <View contentContainerStyle={styles.contentContainer}>
-            <QRCodeScanner />
+            <QRCodeScanner navigation={this.props.navigation} />
           </View>
         </View>
       </SideMenu>

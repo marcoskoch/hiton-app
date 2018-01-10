@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions, TouchableOpacity, Text, Image } from 'react-native';
+import { 
+  ScrollView, 
+  View, 
+  StyleSheet, 
+  Dimensions, 
+  TouchableOpacity, 
+  Text, 
+  Image,
+  RefreshControl } from 'react-native';
 import Topo from './general/topo';
 import Menu from './general/menu';
 import CardUser from './general/cardUser';
@@ -77,11 +85,19 @@ export default class ListUser extends Component {
       isOpen: false,
       showMenu: false,
       isModalVisible: false,
+      refreshing: false,
       itemSelected: []
     };
   }
 
-  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible })
+  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
+
+  _onRefresh() {
+    this.setState({refreshing: true});
+    fetchData().then(() => {
+      this.setState({refreshing: false});
+    });
+  };
 
   toggle() {
     if (this.state.showMenu) {
@@ -122,10 +138,15 @@ export default class ListUser extends Component {
           <TouchableOpacity onPress={this.toggle}>
             <Topo title='Hit On' showMenu={this.state.showMenu} />
           </TouchableOpacity>
-          {/*  <TouchableOpacity onPress={this._toggleModal}>
-         <Text>Show Modal</Text>
-       </TouchableOpacity> */}
-          <ScrollView contentContainerStyle={styles.contentContainer}>
+          <ScrollView 
+            contentContainerStyle={styles.contentContainer}
+            /* refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
+              />
+            } */
+            >
             <View>
               {listUserMock.map(item => (
                 <CardUser

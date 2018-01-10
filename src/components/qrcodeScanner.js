@@ -7,7 +7,9 @@ import {
   Vibration,
   Animated,
   Easing,
-  View
+  View,
+  AsyncStorage,
+  Alert
 } from 'react-native';
 
 import Camera from 'react-native-camera'
@@ -78,12 +80,12 @@ export default class QRCodeScanner extends Component {
   _handleBarCodeRead(e) {
     if (!this.state.scanning) {
       Vibration.vibrate();
-      this._setScanning(true);
       this.props.onRead(e)
       if (e.data == this.state.idEvent) {
         const { navigate } = this.props.navigation;
+        this._setScanning(true);
         navigate('ListUser');
-      }
+      } 
       if (this.props.reactivate) {
         setTimeout(() => (this._setScanning(false)), this.props.reactivateTimeout);
       }
