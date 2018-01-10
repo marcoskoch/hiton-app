@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, TextInput, AsyncStorage } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import axios from 'axios';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -26,7 +27,6 @@ class Login extends Component {
         </View>
         <View style={styles.positionText}>
           <LoginButton
-            publishPermissions={["email, user_birthday"]}
             onLoginFinished={
               (error, result) => {
                 if (error) {
@@ -34,13 +34,23 @@ class Login extends Component {
                 } else if (result.isCancelled) {
                   alert("Login was cancelled");
                 } else {
-                  console.log(arguments);
                   AccessToken.getCurrentAccessToken().then(
                     (data) => {
                       AsyncStorage.setItem('facebookToken', data.accessToken);
+                      axios.post('http://159.89.33.119:3000/api/auth/login', {
+                        facebookToken: 'EAAcGJNjINQkBAOZBGoeq6v4kd4dSB4nSuGxZCfHpWfR8eDYjDeIJucstSlcvjxoyYT5FTsxeciwYCwHcjHZAN0cmGYbKBFikwXU3hZCF0PaLQrtGmSKbovG3uMAXNW6xPNmPa0aTyR5KgZCSTLxqRfzV4OMjvxWhnLQZAuR9R4bLpFGZBZAdysSi6y1dVd2pspQnrz5wkiooRAZDZD',
+                      }).then(function (response) {
+                        AsyncStorage.setItem('profile_name', response.data.user.name);
+                        AsyncStorage.setItem('profile_email', response.data.user.email);
+                        AsyncStorage.setItem('profile_photo', response.data.user.picture.data.url);
+                        navigate('Events');
+                        AsyncStorage.setItem('apiToken', data.accessToken);
+                      }).catch(function (error) {
+                        console.log(error);
+                      });
                       //post pra pegar o token da aplicacaos
                       //post salvar usuario
-                      navigate('Events');
+
                     })
                 }
               }

@@ -13,6 +13,7 @@ export default class Menu extends Component {
       profile_gender: this.props.gender,
       profile_minyear: this.props.minyear,
       profile_maxyear: this.props.maxyear,
+      profile_photo: this.props.photo,
     }
   }
   componentDidMount() {
@@ -24,6 +25,9 @@ export default class Menu extends Component {
     }).done();
     AsyncStorage.getItem("profile_maxyear").then((value) => {
         this.setState({"profile_maxyear": value});
+    }).done();
+    AsyncStorage.getItem("profile_photo").then((value) => {
+        this.setState({"profile_photo": value});
     }).done();
   }
   logOut = (navigate) => {
@@ -40,7 +44,7 @@ export default class Menu extends Component {
           <Text style={styles.textPerfil}>Meu Perfil</Text>
         </View>
         <View style={styles.positionPhoto}>
-          <ImageProfile image='../../assets/images/user_photo.jpg'/>
+          <ImageProfile uri={this.state.profile_photo}/>
         </View>
         <View style={styles.positionTextStart}>
           <Text style={styles.textTitle}>Idade</Text>

@@ -144,6 +144,7 @@ class formProfile extends Component {
                     <TextInput
                     style={styles.textInput}
                     placeholder="Nome"
+                    editable="false"
                     value={this.state.profile_name}
                     onChangeText={texto => this.setNome(texto) }
                     />
@@ -154,6 +155,7 @@ class formProfile extends Component {
                     style={styles.textInput}
                     placeholder="E-mail"
                     keyboardType='email-address'
+                    editable="false"
                     value={this.state.profile_email}
                     onChangeText={texto => this.setEmail(texto) }
                     />
