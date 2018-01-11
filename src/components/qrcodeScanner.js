@@ -42,7 +42,7 @@ export default class QRCodeScanner extends Component {
     onRead: () => (console.log('QR code scanned!')),
     reactivate: false,
     reactivateTimeout: 0,
-    fadeIn: true,
+    fadeIn: false,
     showMarker: false,
   }
 
@@ -84,21 +84,22 @@ export default class QRCodeScanner extends Component {
       this._setScanning(true);
       Vibration.vibrate();
       this.props.onRead(e)
-      if (e.data == this.state.idEvent) {
-        const { navigate } = this.props.navigation;
-        navigate('ListUser');
-      } else {
-        Alert.alert(
-          'Ops',
-          'QRCode Inválido, tente novamente',
-          [
-            { text: 'OK', onPress: () => this._setScanning(false) },
-          ],
-          { cancelable: false }
-        )
-      }
-      if (this.props.reactivate) {
-        setTimeout(() => (this._setScanning(false)), this.props.reactivateTimeout);
+      const { navigate } = this.props.navigation;
+
+      switch (e.data) {
+        case this.state.idEvent:
+          navigate('ListUser');
+          break;
+        default:
+          Alert.alert(
+            'Ops',
+            'QRCode Inválido, tente novamente',
+            [
+              { text: 'OK', onPress: () => navigate('Events') },
+            ],
+            { cancelable: false }
+          )
+          break;
       }
     }
   }
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: primaryColor,
     width: Dimensions.get('window').width,
-    marginTop:Dimensions.get('window').height-110,
+    marginTop: Dimensions.get('window').height - 110,
     height: 50,
   },
   textHelp: {
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    height: Dimensions.get('window').height-110,
+    height: Dimensions.get('window').height - 110,
     width: Dimensions.get('window').width
   },
 

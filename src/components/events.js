@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
-  Alert
+  Alert,
+  AppState
 } from 'react-native';
 import {
   AccessToken,
@@ -77,12 +78,12 @@ class Events extends Component {
       listaItens: [],
       facebookToken: '',
       baseURL: [
-        'https://graph.facebook.com/v2.11/tr3snh/events?since=' + sinceTime + '&access_token=',
-        'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?since=' + sinceTime + '&access_token=',
-        'https://graph.facebook.com/v2.11/innloungebarnh/events?since=' + sinceTime + '&access_token=',
-        'https://graph.facebook.com/v2.11/gruposambary/events?since=' + sinceTime + '&access_token=',
-        'https://graph.facebook.com/v2.11/maoribeachclub/events?since=' + sinceTime + '&access_token=',
-        'https://graph.facebook.com/v2.11/300cosmodiningroom/events?since=' + sinceTime + '&access_token='
+        'https://graph.facebook.com/v2.11/tr3snh/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
+        'https://graph.facebook.com/v2.11/SenseClub-NH-353990601312933/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
+        'https://graph.facebook.com/v2.11/innloungebarnh/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
+        'https://graph.facebook.com/v2.11/gruposambary/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
+        'https://graph.facebook.com/v2.11/maoribeachclub/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
+        'https://graph.facebook.com/v2.11/300cosmodiningroom/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token='
       ],
     };
 
@@ -107,6 +108,7 @@ class Events extends Component {
       this.setState({ "facebookToken": value });
       this.state.baseURL.forEach((value, index, array) => {
         axios.get(value + this.state.facebookToken).then(response => {
+          console.log(response);
           this.setState({
             listaItens: [...this.state.listaItens, ...response.data.data]
           });
@@ -127,14 +129,6 @@ class Events extends Component {
       });
     }).done();
 
-  }
-
-  getImageEventFacebook(idEvent) {
-    axios.get('https://graph.facebook.com/v2.11/' + idEvent + '/picture?type=large&access_token=' + this.state.facebookToken.toString())
-      .then(response => {
-        return response.config.url;
-      })
-      .catch(() => { console.log('Erro ao recuperar as fotos'); });
   }
 
   render() {
@@ -159,7 +153,6 @@ class Events extends Component {
                 <TouchableOpacity key={item.id} style={styles.positionText} onPress={() => saveEvent(navigate, item.id, item.name)} >
                   <CardEvent
                     item={item}
-                    urlImageEventFacebook={this.getImageEventFacebook(item.id)}
                   />
                 </TouchableOpacity>
               ))}

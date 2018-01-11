@@ -15,7 +15,7 @@ class CardEvent extends Component {
         city: this.returnNameCity(props.item.place),
         name: props.item.name,
         place: this.returnPlaceEvent(props.item.place.name),
-        photo: ''
+        photo: props.item.cover.source
       };
     }
 
@@ -43,7 +43,6 @@ class CardEvent extends Component {
   componentWillMount() {
     AsyncStorage.getItem("facebookToken").then((value) => {
         this.setState({"facebookToken": value});
-        this.setState({"photo": 'https://graph.facebook.com/v2.11/'+this.props.item.id+'/picture?type=large&access_token=' + value});
     }).done();
 
   }
