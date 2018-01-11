@@ -51,7 +51,7 @@ export default class Menu extends Component {
         <View style={styles.positionTextStart}>
           <Text style={styles.textTitle}>Idade</Text>
           <Text style={styles.textSubTitle}>Entre {this.state.profile_minyear} e {this.state.profile_maxyear} Anos</Text>
-          <Text style={styles.textTitle}>Gênero</Text>
+          <Text style={styles.textTitle}>Gênero de interesse</Text>
           <Text style={styles.textSubTitle}>{this.state.profile_gender}</Text>
         </View>
         <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('Events')}>
