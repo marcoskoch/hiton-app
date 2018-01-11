@@ -9,10 +9,12 @@ import {
   Easing,
   View,
   AsyncStorage,
-  Alert
+  Alert,
+  Text
 } from 'react-native';
 
 import Camera from 'react-native-camera'
+const primaryColor = '#2d7bdc';
 
 
 export default class QRCodeScanner extends Component {
@@ -85,27 +87,12 @@ export default class QRCodeScanner extends Component {
         const { navigate } = this.props.navigation;
         this._setScanning(true);
         navigate('ListUser');
-      } 
+      }
       if (this.props.reactivate) {
         setTimeout(() => (this._setScanning(false)), this.props.reactivateTimeout);
       }
     }
   }
-
-  _renderTopContent() {
-    if (this.props.topContent) {
-      return this.props.topContent;
-    }
-    return null;
-  }
-
-  _renderBottomContent() {
-    if (this.props.bottomContent) {
-      return this.props.bottomContent;
-    }
-    return null;
-  }
-
   _renderCameraMarker() {
     if (this.props.showMarker) {
       if (this.props.customMarker) {
@@ -146,12 +133,9 @@ export default class QRCodeScanner extends Component {
   render() {
     return (
       <View style={[styles.mainContainer, this.props.containerStyle]}>
-        <View style={[styles.infoView, this.props.topViewStyle]}>
-          {this._renderTopContent()}
-        </View>
         {this._renderCamera()}
-        <View style={[styles.infoView, this.props.bottomViewStyle]}>
-          {this._renderBottomContent()}
+        <View style={styles.infoView}>
+          <Text style={styles.textHelp}> Leia o Código QR Code do seu Evento!</Text>
         </View>
       </View>
     )
@@ -160,23 +144,28 @@ export default class QRCodeScanner extends Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1
+    flex: 1,
+
   },
   infoView: {
-    flex: 2,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: primaryColor,
     width: Dimensions.get('window').width,
+    marginTop:Dimensions.get('window').height-110,
+    height: 50,
+  },
+  textHelp: {
+    color: "#FFFFFF",
+    fontSize: 20
   },
 
   camera: {
-    flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    height: Dimensions.get('window').width,
-    width: Dimensions.get('window').width,
-    marginTop: 50
+    height: Dimensions.get('window').height-110,
+    width: Dimensions.get('window').width
   },
 
   rectangleContainer: {
