@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     width: win.width/3,
     height: win.width/3,
     borderWidth: 0.5,
-    borderColor: '#7e7e7e'
+    borderColor: '#7e7e7e',
+    marginBottom: 15
   },
 });

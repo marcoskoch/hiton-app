@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   imagePhoto: {
-    width: win.width / 2.5,
-    height: win.width / 2.5,
+    width: win.width / 3,
+    height: win.width / 3,
     borderWidth: 0.5,
     borderColor: '#7e7e7e'
   },
