@@ -50,12 +50,15 @@ class Login extends Component {
                       axios.post('http://159.89.33.119:3000/api/auth/login', {
                         facebookToken: data.accessToken,
                       }).then(function (response) {
-                        AsyncStorage.setItem('profile_name', response.data.user.name);
-                        AsyncStorage.setItem('profile_gender_me', response.data.user.gender);
-                        AsyncStorage.setItem('profile_birthday', response.data.user.birthday);
-                        AsyncStorage.setItem('profile_email', response.data.user.email);
-                        AsyncStorage.setItem('profile_photo', response.data.user.picture.data.url);
-                        AsyncStorage.setItem('apiToken', data.accessToken);
+                        var dataItem = response.data;
+                        var dataUser = dataItem.savedUser
+                        AsyncStorage.setItem('profile_name', dataUser.name.toString());
+                        AsyncStorage.setItem('profile_gender_me', dataUser.gender.toString());
+                        AsyncStorage.setItem('profile_birthday', dataUser.birthday.toString());
+                        AsyncStorage.setItem('profile_email', dataUser.email.toString());
+                        AsyncStorage.setItem('profile_photo', dataUser.picture.toString());
+                        AsyncStorage.setItem('profile_id', dataUser.id.toString());
+                        AsyncStorage.setItem('apiToken', dataItem.token.toString());
                         navigate('Events');
                       }).catch(function (error) {
                         console.log(error);

@@ -58,7 +58,7 @@ export default class Menu extends Component {
           <Text style={styles.textTitle}>Eventos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.positionTextStart} onPress={() => navigate('ProfileUser')}>
-          <Text style={styles.textTitle}>Configuração</Text>
+          <Text style={styles.textTitle}>Perfil</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.positionTextStart} onPress={() => this.logOut(navigate)}>
           <Text style={styles.textTitle}>Sair</Text>
