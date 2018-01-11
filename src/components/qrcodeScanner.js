@@ -87,6 +87,15 @@ export default class QRCodeScanner extends Component {
       if (e.data == this.state.idEvent) {
         const { navigate } = this.props.navigation;
         navigate('ListUser');
+      } else {
+        Alert.alert(
+          'Ops',
+          'QRCode Inválido, tente novamente',
+          [
+            { text: 'OK', onPress: () => this._setScanning(false) },
+          ],
+          { cancelable: false }
+        )
       }
       if (this.props.reactivate) {
         setTimeout(() => (this._setScanning(false)), this.props.reactivateTimeout);
