@@ -164,7 +164,9 @@ class formProfile extends Component {
                     <Text style={styles.titleInput}>Telefone</Text>
                     <TextInputMask
           						ref="Telefone"
-          						type={'cel-phone'}
+                      type={'cel-phone'}
+                      keyboardType='numeric'
+                      returnKeyType='done'
           						style={styles.textInput}
                       value={this.state.profile_phone}
                       onChangeText={texto => this.setPhone(texto) }
@@ -188,7 +190,9 @@ class formProfile extends Component {
                     <TextInputMask
           						ref="Idade Mínima"
           						type={'only-numbers'}
-          						style={styles.textInput}
+                      style={styles.textInput}
+                      keyboardType='numeric'
+                      returnKeyType='done'
                       value={this.state.profile_minyear}
                       maxLength={2}
                       onChangeText={texto => this.setMinYear(texto) }
@@ -199,7 +203,9 @@ class formProfile extends Component {
                     <TextInputMask
           						ref="Idade Máxima"
           						type={'only-numbers'}
-          						style={styles.textInput}
+                      style={styles.textInput}
+                      keyboardType='numeric'
+                      returnKeyType='done'
                       value={this.state.profile_maxyear}
                       maxLength={2}
                       onChangeText={texto => this.setMaxYear(texto) }
