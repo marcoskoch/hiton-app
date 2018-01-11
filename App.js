@@ -19,6 +19,8 @@ export const SimpleApp = StackNavigator({
   ListUser: { screen: ListUser }
 });
 
+console.disableYellowBox = true;
+
 export default class App extends Component {
   render() {
     return (

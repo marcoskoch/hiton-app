@@ -23,19 +23,21 @@ class Login extends Component {
     AccessToken.getCurrentAccessToken().then(
       (data) => {
         AsyncStorage.setItem('facebookToken', data.accessToken);
-        if(data != null)
-          console.log(data);
+        console.log(data.accessToken);
+        if (data != null) {
           navigate('Events');
+        }
       })
     return (
       <View style={styles.backgroundLogin}>
         <View style={styles.positionLogo}>
           <Image style={styles.imageLogo}
             source={require('../assets/images/HIT-On.png')} />
-            <Text style={styles.textEntrar}>Hit On</Text>
+          <Text style={styles.textEntrar}>Hit On</Text>
         </View>
         <View style={styles.positionText}>
           <LoginButton
+            readPermissions={["public_profile", 'email', 'user_birthday']}
             onLoginFinished={
               (error, result) => {
                 if (error) {
@@ -49,7 +51,10 @@ class Login extends Component {
                       axios.post('http://159.89.33.119:3000/api/auth/login', {
                         facebookToken: data.accessToken,
                       }).then(function (response) {
+                        console.log(response);
                         AsyncStorage.setItem('profile_name', response.data.user.name);
+                        AsyncStorage.setItem('profile_gender_me', response.data.user.gender);
+                        AsyncStorage.setItem('profile_birthday', response.data.user.birthday);
                         AsyncStorage.setItem('profile_email', response.data.user.email);
                         AsyncStorage.setItem('profile_photo', response.data.user.picture.data.url);
                         AsyncStorage.setItem('apiToken', data.accessToken);
@@ -106,12 +111,12 @@ const styles = StyleSheet.create({
     height: win.width / 2.5
   },
   textEntrar: {
-      fontSize: 35,
-      marginTop: 15,
-      color: '#FFFFFF',
-      justifyContent: 'center',
-      alignItems: 'center'
-      // fontFamily: 'segoeuil'
+    fontSize: 35,
+    marginTop: 15,
+    color: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center'
+    // fontFamily: 'segoeuil'
   },
   positionContato: {
     justifyContent: 'center',
@@ -119,9 +124,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textContato: {
-      fontSize: 15,
-      color: '#FFFFFF',
-      // fontFamily: 'segoeuil'
+    fontSize: 15,
+    color: '#FFFFFF',
+    // fontFamily: 'segoeuil'
   },
   positionText: {
     alignItems: 'center',
