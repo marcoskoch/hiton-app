@@ -1,23 +1,27 @@
 {
-  "images" : [
+    "images" : [
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "Default-Portrait.png"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Default-667h@2x.png"
+
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
       "subtype" : "retina4",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Default@2x.png"
     },
     {
       "orientation" : "portrait",
@@ -25,7 +29,8 @@
       "extent" : "full-screen",
       "minimum-system-version" : "8.0",
       "subtype" : "736h",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Default@2x.png"
     },
     {
       "orientation" : "landscape",
@@ -33,7 +38,8 @@
       "extent" : "full-screen",
       "minimum-system-version" : "8.0",
       "subtype" : "736h",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Default-Landscape-736h@3x.png"
     },
     {
       "orientation" : "portrait",
@@ -41,14 +47,16 @@
       "extent" : "full-screen",
       "minimum-system-version" : "8.0",
       "subtype" : "667h",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Default-667h@2x.png"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Default@2x.png"
     },
     {
       "orientation" : "portrait",
@@ -56,11 +64,12 @@
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "subtype" : "retina4",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Default@2x.png"
     }
   ],
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  }
+    "info":{
+        "version":1,
+        "author":"gomesfeli"
+    }
 }
