@@ -23,7 +23,6 @@ class Login extends Component {
     AccessToken.getCurrentAccessToken().then(
       (data) => {
         AsyncStorage.setItem('facebookToken', data.accessToken);
-        console.log(data.accessToken);
         if (data != null) {
           navigate('Events');
         }
@@ -51,7 +50,6 @@ class Login extends Component {
                       axios.post('http://159.89.33.119:3000/api/auth/login', {
                         facebookToken: data.accessToken,
                       }).then(function (response) {
-                        console.log(response);
                         AsyncStorage.setItem('profile_name', response.data.user.name);
                         AsyncStorage.setItem('profile_gender_me', response.data.user.gender);
                         AsyncStorage.setItem('profile_birthday', response.data.user.birthday);
