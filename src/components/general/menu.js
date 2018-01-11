@@ -44,7 +44,9 @@ export default class Menu extends Component {
           <Text style={styles.textPerfil}>Meu Perfil</Text>
         </View>
         <View style={styles.positionPhoto}>
-          <ImageProfile uri={this.state.profile_photo}/>
+        <Image borderRadius={65}
+          style={styles.imagePhoto}
+          source={{ url: this.state.profile_photo}}/>
         </View>
         <View style={styles.positionTextStart}>
           <Text style={styles.textTitle}>Idade</Text>

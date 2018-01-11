@@ -12,7 +12,7 @@ export default class ImageProfile extends Component {
       <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
         <Image borderRadius={65}
           style={styles.imagePhoto}
-          source={require('../../assets/images/user_photo.jpg')} />
+          source={ require('../../assets/images/user_photo.jpg')} />
       </View>
     );
   }

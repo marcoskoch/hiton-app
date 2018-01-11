@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, StyleSheet, Dimensions,TextInput, TouchableOpacity,Image, Text, Alert } from 'react-native';
+import { ScrollView, View, StyleSheet, Dimensions,TextInput, TouchableOpacity,Image, Text, Alert, AsyncStorage } from 'react-native';
 import    Topo          from './general/topo';
 import    Menu          from './general/menu';
 import    InputConfig   from './general/inputConfig';
@@ -19,8 +19,14 @@ export default class ProfileUser extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      avatarSource: null
+      avatarSource: null,
+      profile_photo: ''
     };
+  }
+  componentDidMount() {
+    AsyncStorage.getItem("profile_photo").then((value) => {
+        this.setState({"profile_photo": value});
+    }).done();
   }
   selectPhotoTapped() {
     const options = {
@@ -67,17 +73,6 @@ export default class ProfileUser extends Component {
     this.setState({ isOpen });
   }
 
-  saveProfile = () => {
-    Alert.alert(
-      'Alert Title',
-      'My Alert Msg',
-      [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ],
-      { cancelable: false }
-    )
-  }
-
   static navigationOptions = {
     header:  null
   };
@@ -97,10 +92,11 @@ export default class ProfileUser extends Component {
             <View style={styles.positionPhoto}>
               <Image borderRadius={65}
                 style={styles.imagePhoto}
-                source={this.state.avatarSource} />
-              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                source={{ url: this.state.profile_photo}}/>
+              {/*</TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
                 <Text style={styles.textImage}> Alterar Foto do perfil </Text>
               </TouchableOpacity>
+              */}
             </View>
             <FormProfile />
           </View>
