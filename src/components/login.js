@@ -51,7 +51,7 @@ class Login extends Component {
                         facebookToken: data.accessToken,
                       }).then(function (response) {
                         var dataItem = response.data;
-                        var dataUser = dataItem.savedUser
+                        var dataUser = dataItem.user
                         AsyncStorage.setItem('profile_name', dataUser.name.toString());
                         AsyncStorage.setItem('profile_gender_me', dataUser.gender.toString());
                         AsyncStorage.setItem('profile_birthday', dataUser.birthday.toString());
