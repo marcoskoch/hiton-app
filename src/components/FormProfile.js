@@ -5,8 +5,9 @@ import { modificaName, modificaEmail,
   modificaMaxYear, modificaMinYear,
   modificaGender, modificaPhone,
   saveProfile } from '../actions/ProfileActions';
-import { Picker } from 'react-native-picker-dropdown'
-import { TextInputMask } from 'react-native-masked-text'
+import { Picker } from 'react-native-picker-dropdown';
+import { TextInputMask } from 'react-native-masked-text';
+import axios from 'axios';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
@@ -21,6 +22,11 @@ class formProfile extends Component {
         profile_gender: this.props.gender,
         profile_minyear: this.props.minyear,
         profile_maxyear: this.props.maxyear,
+        profile_id: this.props.profileId,
+        profile_photo: this.props.profilePhoto,
+        profile_birthday: this.props.profile_birthday,
+        profile_gender_me: this.props.profileGenderMe,
+        apiToken: this.props.apiToken,
       }
       this.setNome = this.setValueNome.bind(this)
       this.setEmail = this.setValueEmail.bind(this)
@@ -47,6 +53,21 @@ class formProfile extends Component {
       }).done();
       AsyncStorage.getItem("profile_maxyear").then((value) => {
           this.setState({"profile_maxyear": value});
+      }).done();
+      AsyncStorage.getItem("profile_id").then((value) => {
+          this.setState({"profile_id": value});
+      }).done();
+      AsyncStorage.getItem("profile_photo").then((value) => {
+          this.setState({"profile_photo": value});
+      }).done();
+      AsyncStorage.getItem("profile_birthday").then((value) => {
+          this.setState({"profile_birthday": value});
+      }).done();
+      AsyncStorage.getItem("profile_gender_me").then((value) => {
+          this.setState({"profile_gender_me": value});
+      }).done();
+      AsyncStorage.getItem("apiToken").then((value) => {
+          this.setState({"apiToken": value});
       }).done();
     }
 
@@ -86,9 +107,40 @@ class formProfile extends Component {
         const minYear = state.profile_minyear;
         const maxYear = state.profile_maxyear;
         const gender = state.profile_gender;
+        const birthday = state.profile_birthday;
         const phone = state.profile_phone;
+        const photo = state.profile_photo;
+        const profileGenderMe = state.profile_gender_me;
         if(this.validProfile(state)) {
             this.props.saveProfile({ name, email, minYear, maxYear, gender, phone });
+            const body = {
+              "name": name,
+              "birthday" : birthday,
+              "picture" : photo,
+              "gender": profileGenderMe,
+              "phone": phone,
+            	"interestedIn": gender,
+            	"minAge": minYear,
+            	"maxAge": maxYear
+            }
+            const api = {
+              "Content-Type": "application/json",
+              "Authorization": "bearer " + this.state.apiToken
+            }
+            console.log(body);
+            console.log(api);
+            axios.put(
+                "http://159.89.33.119:3000/api/users/" + this.state.profile_id,
+                body,
+                {headers: api}
+            ).then(function (response) {
+              console.log(response);
+              alertProfile('Dados Salvos com sucesso!');
+              const { navigate } = this.props.navigation;
+              navigate('Events');
+            }).catch(function (error) {
+              console.log(error);
+            });
         }
     }
 
@@ -144,7 +196,7 @@ class formProfile extends Component {
                     <TextInput
                     style={styles.textInput}
                     placeholder="Nome"
-                    editable="false"
+                    editable={false}
                     value={this.state.profile_name}
                     onChangeText={texto => this.setNome(texto) }
                     />
@@ -155,7 +207,7 @@ class formProfile extends Component {
                     style={styles.textInput}
                     placeholder="E-mail"
                     keyboardType='email-address'
-                    editable="false"
+                    editable={false}
                     value={this.state.profile_email}
                     onChangeText={texto => this.setEmail(texto) }
                     />
@@ -180,9 +232,9 @@ class formProfile extends Component {
                     mode="dialog"
                     style={styles.textInput}
                     textStyle={styles.pickerText} >
-                    <Picker.Item label="Feminino" value="Feminino" />
-                    <Picker.Item label="Masculino" value="Masculino" />
-                    <Picker.Item label="Ambos" value="Ambos" />
+                    <Picker.Item label="Feminino" value="woman" />
+                    <Picker.Item label="Masculino" value="man" />
+                    <Picker.Item label="Ambos" value="both" />
                   </Picker>
                 </View>
                 <View style={styles.positionInput}>

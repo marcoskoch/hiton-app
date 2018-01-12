@@ -63,9 +63,6 @@ class Login extends Component {
                       }).catch(function (error) {
                         console.log(error);
                       });
-                      //post pra pegar o token da aplicacaos
-                      //post salvar usuario
-
                     })
                 }
               }

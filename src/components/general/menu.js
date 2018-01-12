@@ -33,7 +33,21 @@ export default class Menu extends Component {
   logOut = (navigate) => {
     LoginManager.logOut();
     navigate('Login');
-  };
+  }
+  _renderMenu = () => {
+     if (this.state.profile_gender) {
+        return (
+          <View>
+           <Text style={styles.textTitle}>Idade</Text>
+           <Text style={styles.textSubTitle}>Entre {this.state.profile_minyear} e {this.state.profile_maxyear} Anos</Text>
+           <Text style={styles.textTitle}>Gênero de interesse</Text>
+           <Text style={styles.textSubTitle}>{this.state.profile_gender}</Text>
+          </View>
+        );
+      } else {
+          return null;
+      }
+   }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -49,10 +63,7 @@ export default class Menu extends Component {
           source={{ url: this.state.profile_photo}}/>
         </View>
         <View style={styles.positionTextStart}>
-          <Text style={styles.textTitle}>Idade</Text>
-          <Text style={styles.textSubTitle}>Entre {this.state.profile_minyear} e {this.state.profile_maxyear} Anos</Text>
-          <Text style={styles.textTitle}>Gênero de interesse</Text>
-          <Text style={styles.textSubTitle}>{this.state.profile_gender}</Text>
+           {this._renderMenu()}
         </View>
         <TouchableOpacity style={styles.positionTextMenu} onPress={() => navigate('Events')}>
           <Text style={styles.textTitle}>Eventos</Text>
