@@ -31,7 +31,7 @@ class CardUser extends Component {
               <View>
                 <Image
                   style={styles.imageEvent}
-                  source={{uri: item.photo}}
+                  source={{uri: item.picture}}
                 />
               </View>
               <HideableView visible={this.state.visible} duration={250}>
@@ -43,7 +43,7 @@ class CardUser extends Component {
             </View>
 
             <View style={styles.viewText}>
-              <Text style={styles.nameTitle}>{item.name}, {item.year}</Text>
+              <Text style={styles.nameTitle}>{item.name}, {item.age}</Text>
             </View>
           </DoubleClick>
       </View>

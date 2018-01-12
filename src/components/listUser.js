@@ -82,16 +82,19 @@ const listUserMock = [
 ];
 
 export default class ListUser extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.toggle = this.toggle.bind(this);
     this.checkHit = this.checkHit.bind(this);
+    this.getUsersByEvent = this.getUsersByEvent.bind(this);
+
     this.state = {
       isOpen: false,
       showMenu: false,
       isModalVisible: false,
       refreshing: false,
       itemSelected: [],
+      listUsers: [],
       apiToken: '',
       profile_id: '',
       idEvent: '',
@@ -140,8 +143,8 @@ export default class ListUser extends Component {
           { cancelable: false }
         )
       });
-    });
-    
+    }); 
+
   }
 
   _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -180,6 +183,18 @@ export default class ListUser extends Component {
 
   }
 
+  getUsersByEvent(){
+    var url = "http://159.89.33.119:3000/api/users/"+this.state.profile_id+"/event/" + this.state.idEvent;
+    var AuthStr = "bearer " + this.state.apiToken;
+
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(response => {
+      this.setState({ listUsers: response.data })
+    })
+    .catch((error) => {
+      console.log('error ' + error);
+    });
+  }
+
 
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
@@ -201,8 +216,8 @@ export default class ListUser extends Component {
             />
           } */
           >
-            <View>
-              {listUserMock.map(item => (
+            <View>         
+              {this.state.listUsers.map(item => (
                 <CardUser
                   key={item.id}
                   item={item}
