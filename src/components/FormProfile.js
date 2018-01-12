@@ -127,8 +127,6 @@ class formProfile extends Component {
               "Content-Type": "application/json",
               "Authorization": "bearer " + this.state.apiToken
             }
-            console.log(body);
-            console.log(api);
             axios.put(
                 "http://159.89.33.119:3000/api/users/" + this.state.profile_id,
                 body,
@@ -245,8 +243,8 @@ class formProfile extends Component {
                     mode="dialog"
                     style={styles.textInput}
                     textStyle={styles.pickerText} >
-                    <Picker.Item label="Feminino" value="women" />
-                    <Picker.Item label="Masculino" value="men" />
+                    <Picker.Item label="Feminino" value="female" />
+                    <Picker.Item label="Masculino" value="male" />
                     <Picker.Item label="Ambos" value="both" />
                   </Picker>
                 </View>

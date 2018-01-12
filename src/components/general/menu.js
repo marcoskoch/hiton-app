@@ -19,9 +19,9 @@ export default class Menu extends Component {
   }
   componentDidMount() {
     AsyncStorage.getItem("profile_gender").then((value) => {
-      if (value == 'women') {
+      if (value == 'female') {
         this.setState({"profile_gender": 'Feminino'});
-      } else if (value == 'men') {
+      } else if (value == 'male') {
         this.setState({"profile_gender": 'Masculino'});
       } else {
         this.setState({"profile_gender": 'Ambos'});
