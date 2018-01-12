@@ -15,14 +15,18 @@
             <rect key="frame" x="0.0" y="0.0" width="481" height="646"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="HIT-On.png" translatesAutoresizingMaskIntoConstraints="NO" id="uaJ-IL-2zB">
-                    <rect key="frame" x="73" y="156" width="334" height="334"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="HIT-On.png" translatesAutoresizingMaskIntoConstraints="NO" id="uaJ-IL-2zB">
+                    <rect key="frame" x="140.5" y="223" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="J7e-i2-vkt"/>
+                        <constraint firstAttribute="height" constant="200" id="gVT-FD-JZ6"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.15708717699999999" green="0.4867358208" blue="0.86528533699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="uaJ-IL-2zB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PTG-f6-aU9"/>
-                <constraint firstItem="uaJ-IL-2zB" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="xx3-0e-eJb"/>
+                <constraint firstItem="uaJ-IL-2zB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="S7N-WE-Tkk"/>
+                <constraint firstItem="uaJ-IL-2zB" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ptp-PB-DLR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
