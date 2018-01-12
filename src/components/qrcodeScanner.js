@@ -13,6 +13,8 @@ import {
   Text
 } from 'react-native';
 
+import axios from 'axios';
+
 import Camera from 'react-native-camera'
 const primaryColor = '#2d7bdc';
 
@@ -89,11 +91,49 @@ export default class QRCodeScanner extends Component {
       switch (e.data) {
         case this.state.idEvent:
           navigate('ListUser');
+          var keys = ['idEvent', 'nameEvent', 'profile_id', 'apiToken'];
+          AsyncStorage.multiGet(keys, (err, data) => {
+            this.setState({
+              idEvent: data[0][1],
+              nameEvent: data[1][1],
+              profile_id: data[2][1],
+              apiToken: data[3][1]
+            });
+
+            const body = {
+              "description": "descrição",
+              "facebookId": this.state.idEvent,
+              "name": this.state.nameEvent,
+              "startDate": "2018-01-14T18:00:00-0200",
+              "endDate": "2018-01-15T02:00:00-0200"
+            }
+            const api = {
+              "Content-Type": "application/json",
+              "Authorization": "bearer " + this.state.apiToken
+            }
+            axios.post(
+                "http://159.89.33.119:3000/api/users/event/" + this.state.profile_id,
+                body,
+                {headers: api}
+            ).then(function (response) {
+              console.log(response);
+            }).catch(function (error) {
+              console.log(error);
+              Alert.alert(
+                'Ops',
+                'Tente novamente mais tarde!',
+                [
+                  {text: 'OK', onPress: () => this.props.navigation('Events')},
+                ],
+                { cancelable: false }
+              )
+            });
+          });
           break;
         default:
           Alert.alert(
             'Ops',
-            'QRCode Inválido, tente novamente',
+            'QRCode Inválido, retornaremos para a listagem de eventos',
             [
               { text: 'OK', onPress: () => navigate('Events') },
             ],
@@ -154,15 +194,13 @@ export default class QRCodeScanner extends Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
-
+    flex: 1
   },
   infoView: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: primaryColor,
     width: Dimensions.get('window').width,
-    marginTop: Dimensions.get('window').height - 110,
     height: 50,
   },
   textHelp: {

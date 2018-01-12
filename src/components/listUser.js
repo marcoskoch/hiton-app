@@ -18,68 +18,10 @@ import Menu from './general/menu';
 import CardUser from './general/cardUser';
 import SideMenu from 'react-native-side-menu';
 import Modal from 'react-native-modal'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const win = Dimensions.get('window');
 const primaryColor = '#2d7bdc';
-
-const listUserMock = [
-  {
-    id: 1,
-    name: 'Thais Santos',
-    photo: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg',
-    year: 21,
-    chouseYou: false,
-    youChouse: false,
-    viewable: false,
-    photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Samantha Rocha',
-    photo: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg',
-    year: 24,
-    chouseYou: true,
-    youChouse: false,
-    viewable: false,
-    photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
-    ]
-  },
-  {
-    id: 3,
-    name: 'Sabrina Julia Marques',
-    photo: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg',
-    year: 19,
-    chouseYou: false,
-    youChouse: true,
-    viewable: true,
-    photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
-    ]
-  },
-  {
-    id: 4,
-    name: 'Julia Stefen',
-    photo: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg',
-    year: 26,
-    chouseYou: true,
-    youChouse: true,
-    viewable: true,
-    photos: [
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033612.jpg' },
-      { image: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033263.jpg' }
-    ]
-  }
-];
 
 export default class ListUser extends Component {
   constructor(props) {
@@ -93,6 +35,7 @@ export default class ListUser extends Component {
       showMenu: false,
       isModalVisible: false,
       refreshing: false,
+      visibleLoading: true,
       itemSelected: [],
       listUsers: [],
       apiToken: '',
@@ -103,11 +46,8 @@ export default class ListUser extends Component {
   }
 
   componentWillMount() {
-
     var keys = ['idEvent', 'nameEvent', 'profile_id', 'apiToken'];
-
     AsyncStorage.multiGet(keys, (err, data) => {
-
       this.setState({
         idEvent: data[0][1],
         nameEvent: data[1][1],
@@ -115,36 +55,28 @@ export default class ListUser extends Component {
         apiToken: data[3][1]
       });
 
-      const body = {
-        "description": "descrição",
-        "facebookId": this.state.idEvent,
-        "name": this.state.nameEvent,
-        "startDate": "2018-01-14T18:00:00-0200",
-        "endDate": "2018-01-15T02:00:00-0200"
-      }
-      const api = {
-        "Content-Type": "application/json",
-        "Authorization": "bearer " + this.state.apiToken
-      }
-      axios.post(
-          "http://159.89.33.119:3000/api/users/event/" + this.state.profile_id,
-          body,
-          {headers: api}
-      ).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-        Alert.alert(
-          'Ops',
-          'Tente novamente mais tarde!',
-          [
-            {text: 'OK', onPress: () => this.props.navigation('Events')},
-          ],
-          { cancelable: false }
-        )
+      var url = "http://159.89.33.119:3000/api/users/"+this.state.profile_id+"/event/" + this.state.idEvent;
+      var AuthStr = "bearer " + this.state.apiToken;
+      axios.get(url, { headers: { Authorization: AuthStr } }).then(response => {
+        console.log('deu certo ' + response);
+        this.setState({
+          listUsers: [...this.state.listUsers, ...response.data]
+        });
+        // this.setState({ visibleLoading: false });
+        alert(listUsers.length);
+        if (listUsers.length == 0) {
+          alert('sem usuário');
+        }
+      })
+      .catch((error) => {
+        console.log('error ' + error);
       });
-    }); 
+    }).done();
 
+
+    AsyncStorage.getItem("facebookToken").then((value) => {
+
+    }).done();
   }
 
   _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -184,15 +116,7 @@ export default class ListUser extends Component {
   }
 
   getUsersByEvent(){
-    var url = "http://159.89.33.119:3000/api/users/"+this.state.profile_id+"/event/" + this.state.idEvent;
-    var AuthStr = "bearer " + this.state.apiToken;
 
-    axios.get(url, { headers: { Authorization: AuthStr } }).then(response => {
-      this.setState({ listUsers: response.data })
-    })
-    .catch((error) => {
-      console.log('error ' + error);
-    });
   }
 
 
@@ -216,7 +140,10 @@ export default class ListUser extends Component {
             />
           } */
           >
-            <View>         
+            <View>
+            <View style={{ flex: 1 }}>
+              <Spinner visible={this.state.visibleLoading} textContent={"Carregando..."} color='#2d7bdc' textStyle={{ color: '#2d7bdc' }} />
+            </View>
               {this.state.listUsers.map(item => (
                 <CardUser
                   key={item.id}

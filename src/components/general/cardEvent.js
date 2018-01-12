@@ -71,6 +71,7 @@ class CardEvent extends Component {
 
 const styles = StyleSheet.create({
   cardView: {
+    backgroundColor: '#FFFFFF',
     marginTop: 5,
     marginBottom: 5,
     marginLeft: 10,
