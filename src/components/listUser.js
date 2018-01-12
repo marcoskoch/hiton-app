@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { 
-  ScrollView, 
-  View, 
-  StyleSheet, 
-  Dimensions, 
-  TouchableOpacity, 
-  Text, 
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  Text,
   Image,
-  RefreshControl } from 'react-native';
+  RefreshControl,
+  AsyncStorage,
+  Alert
+} from 'react-native';
+import axios from 'axios';
+
 import Topo from './general/topo';
 import Menu from './general/menu';
 import CardUser from './general/cardUser';
@@ -81,21 +86,73 @@ export default class ListUser extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.checkHit = this.checkHit.bind(this);
+    this.getUsersByEvent = this.getUsersByEvent.bind(this);
+
     this.state = {
       isOpen: false,
       showMenu: false,
       isModalVisible: false,
       refreshing: false,
-      itemSelected: []
+      itemSelected: [],
+      listUsers: [],
+      apiToken: '',
+      profile_id: '',
+      idEvent: '',
+      nameEvent: ''
     };
+  }
+
+  componentWillMount() {
+
+    var keys = ['idEvent', 'nameEvent', 'profile_id', 'apiToken'];
+
+    AsyncStorage.multiGet(keys, (err, data) => {
+
+      this.setState({
+        idEvent: data[0][1],
+        nameEvent: data[1][1],
+        profile_id: data[2][1],
+        apiToken: data[3][1]
+      });
+
+      const body = {
+        "description": "descrição",
+        "facebookId": this.state.idEvent,
+        "name": this.state.nameEvent,
+        "startDate": "2018-01-14T18:00:00-0200",
+        "endDate": "2018-01-15T02:00:00-0200"
+      }
+      const api = {
+        "Content-Type": "application/json",
+        "Authorization": "bearer " + this.state.apiToken
+      }
+      axios.post(
+          "http://159.89.33.119:3000/api/users/event/" + this.state.profile_id,
+          body,
+          {headers: api}
+      ).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+        Alert.alert(
+          'Ops',
+          'Tente novamente mais tarde!',
+          [
+            {text: 'OK', onPress: () => this.props.navigation('Events')},
+          ],
+          { cancelable: false }
+        )
+      });
+    }); 
+
   }
 
   _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
 
   _onRefresh() {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     fetchData().then(() => {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     });
   };
 
@@ -126,6 +183,18 @@ export default class ListUser extends Component {
 
   }
 
+  getUsersByEvent(){
+    var url = "http://159.89.33.119:3000/api/users/"+this.state.profile_id+"/event/" + this.state.idEvent;
+    var AuthStr = "bearer " + this.state.apiToken;
+
+    axios.get(url, { headers: { Authorization: AuthStr } }).then(response => {
+      this.setState({ listUsers: response.data })
+    })
+    .catch((error) => {
+      console.log('error ' + error);
+    });
+  }
+
 
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
@@ -138,17 +207,17 @@ export default class ListUser extends Component {
           <TouchableOpacity onPress={this.toggle}>
             <Topo title='Hit On' showMenu={this.state.showMenu} />
           </TouchableOpacity>
-          <ScrollView 
+          <ScrollView
             contentContainerStyle={styles.contentContainer}
-            /* refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh.bind(this)}
-              />
-            } */
-            >
-            <View>
-              {listUserMock.map(item => (
+          /* refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          } */
+          >
+            <View>         
+              {this.state.listUsers.map(item => (
                 <CardUser
                   key={item.id}
                   item={item}
