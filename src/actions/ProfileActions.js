@@ -58,24 +58,8 @@ export const saveProfile = (profile) => {
       AsyncStorage.setItem('profile_gender', profile.gender.toString());
       AsyncStorage.setItem('profile_minyear', profile.minYear.toString());
       AsyncStorage.setItem('profile_maxyear', profile.maxYear.toString());
-      Alert.alert(
-        'Meus Dados',
-        'Dados do perfil foram atualizados!',
-        [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        { cancelable: false }
-      )
     } catch (error) {
       console.log(error)
-      Alert.alert(
-        'Ops',
-        'Tente novamente mais tarde!',
-        [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        { cancelable: false }
-      )
     }
     return {
         type: 'sucesso'

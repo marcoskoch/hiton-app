@@ -98,7 +98,7 @@ export default class ProfileUser extends Component {
               </TouchableOpacity>
               */}
             </View>
-            <FormProfile />
+            <FormProfile navigate={this.props.navigation} />
           </View>
         </View>
       </SideMenu>

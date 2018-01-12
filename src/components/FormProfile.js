@@ -135,11 +135,24 @@ class formProfile extends Component {
                 {headers: api}
             ).then(function (response) {
               console.log(response);
-              alertProfile('Dados Salvos com sucesso!');
-              const { navigate } = this.props.navigation;
-              navigate('Events');
+              Alert.alert(
+                'Meus Dados',
+                'Dados Salvos com sucesso!',
+                [
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+              )
             }).catch(function (error) {
               console.log(error);
+              Alert.alert(
+                'Ops',
+                'Tente novamente mais tarde!',
+                [
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+              )
             });
         }
     }
@@ -232,8 +245,8 @@ class formProfile extends Component {
                     mode="dialog"
                     style={styles.textInput}
                     textStyle={styles.pickerText} >
-                    <Picker.Item label="Feminino" value="woman" />
-                    <Picker.Item label="Masculino" value="man" />
+                    <Picker.Item label="Feminino" value="women" />
+                    <Picker.Item label="Masculino" value="men" />
                     <Picker.Item label="Ambos" value="both" />
                   </Picker>
                 </View>

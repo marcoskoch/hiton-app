@@ -15,10 +15,17 @@ export default class Menu extends Component {
       profile_maxyear: this.props.maxyear,
       profile_photo: this.props.photo,
     }
+
   }
   componentDidMount() {
     AsyncStorage.getItem("profile_gender").then((value) => {
-        this.setState({"profile_gender": value});
+      if (value == 'women') {
+        this.setState({"profile_gender": 'Feminino'});
+      } else if (value == 'men') {
+        this.setState({"profile_gender": 'Masculino'});
+      } else {
+        this.setState({"profile_gender": 'Ambos'});
+      }
     }).done();
     AsyncStorage.getItem("profile_minyear").then((value) => {
         this.setState({"profile_minyear": value});
@@ -29,6 +36,7 @@ export default class Menu extends Component {
     AsyncStorage.getItem("profile_photo").then((value) => {
         this.setState({"profile_photo": value});
     }).done();
+
   }
   logOut = (navigate) => {
     LoginManager.logOut();
