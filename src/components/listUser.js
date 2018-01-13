@@ -28,7 +28,6 @@ export default class ListUser extends Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.checkHit = this.checkHit.bind(this);
-    this.getUsersByEvent = this.getUsersByEvent.bind(this);
 
     this.state = {
       isOpen: false,
@@ -41,7 +40,9 @@ export default class ListUser extends Component {
       apiToken: '',
       profile_id: '',
       idEvent: '',
-      nameEvent: ''
+      nameEvent: '',
+      hitedPhoto: '',
+      hitedPhone: ''
     };
   }
 
@@ -62,7 +63,7 @@ export default class ListUser extends Component {
         this.setState({
           listUsers: [...this.state.listUsers, ...response.data]
         });
-        // this.setState({ visibleLoading: false });
+        this.setState({ visibleLoading: false });
         alert(listUsers.length);
         if (listUsers.length == 0) {
           alert('sem usuário');
@@ -106,19 +107,40 @@ export default class ListUser extends Component {
     header: null
   };
 
-  checkHit() {
-    // realizar um get com o id da pessoa curtida
-    let isReciprocal = random_boolean = Math.random() >= 0.5;
-    if (isReciprocal) {
-      this.setState({ isModalVisible: !this.state.isModalVisible })
+  checkHit(hited) {
+    const body = {
+      "hitId": this.state.profile_id,
+      "hitedId": hited.id,
+      "eventId": this.state.idEvent
     }
-
+    const api = {
+      "Content-Type": "application/json",
+      "Authorization": "bearer " + this.state.apiToken
+    }
+    let self = this;
+    axios.post(
+        "http://159.89.33.119:3000/api/hits",
+        body,
+        {headers: api}
+    ).then(function (response) {
+        console.log(response);
+        self.setState({ 
+          isModalVisible: response.data.mutual,
+          hitedPhoto: hited.picture,
+          hitedPhone: hited.phone
+        })
+    }).catch(function (error) {
+      console.log(error);
+      Alert.alert(
+        'Ops',
+        'Tente novamente mais tarde!',
+        [
+          {text: 'OK', onPress: () => this.props.navigation('Events')},
+        ],
+        { cancelable: false }
+      )
+    });
   }
-
-  getUsersByEvent(){
-
-  }
-
 
   render() {
     const menu = <Menu navigation={this.props.navigation} />;
@@ -160,14 +182,14 @@ export default class ListUser extends Component {
               <View style={styles.cardImage}>
                 <Image
                   style={styles.imageEvent}
-                  source={{ uri: 'https://thumbs.dreamstime.com/b/retrato-exterior-do-ver%C3%A3o-da-menina-loura-consideravelmente-bonito-dos-jovens-mulher-bonita-que-levanta-na-mola-66033915.jpg' }}
+                  source={{ uri: this.state.hitedPhoto }}
                 />
               </View>
               <View style={styles.buttonBlue}>
                 <Text style={styles.txtSubTitle}>Salve o número, para marcarem um hit</Text>
               </View>
               <View style={styles.buttonBlue}>
-                <Text style={styles.txtSubTitle}>(51) 99986-9289</Text>
+                <Text style={styles.txtSubTitle}>{this.state.hitedPhone}</Text>
               </View>
               <TouchableOpacity onPress={this._toggleModal}>
                 <Text style={styles.txtReturn}>Voltar</Text>

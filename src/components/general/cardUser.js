@@ -26,7 +26,7 @@ class CardUser extends Component {
     const item = this.props.item;
     return (
       <View style={styles.cardView}>
-        <DoubleClick onClick={(event) => { this.toggle(); this.props.checkHit();}} >
+        <DoubleClick onClick={(event) => { this.toggle(); this.props.checkHit(item);}} >
             <View style={styles.cardImage}>
               <View>
                 <Image
