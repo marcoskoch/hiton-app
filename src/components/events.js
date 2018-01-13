@@ -83,7 +83,8 @@ class Events extends Component {
         'https://graph.facebook.com/v2.11/innloungebarnh/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
         'https://graph.facebook.com/v2.11/gruposambary/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
         'https://graph.facebook.com/v2.11/maoribeachclub/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
-        'https://graph.facebook.com/v2.11/300cosmodiningroom/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token='
+        'https://graph.facebook.com/v2.11/300cosmodiningroom/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token=',
+        'https://graph.facebook.com/v2.11/Hit-On-112645269543949/events?fields=cover,start_time,name,place&since=' + sinceTime + '&access_token='
       ],
     };
 
